@@ -1,8 +1,8 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "name": "nuxt-reddit-conversion-api",
+  "version": "0.0.1",
+  "description": "Nuxt 3 Reddit Conversion API (CAPI)",
+  "repository": "niklasfjeldberg/nuxt-reddit-conversion-api",
   "license": "MIT",
   "type": "module",
   "exports": {
