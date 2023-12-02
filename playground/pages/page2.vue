@@ -1,7 +1,7 @@
 <template>
   <UContainer class="py-20 flex flex-row flex-wrap gap-4 w-full">
-    <h1 class="text-4xl w-full">Multi Analytics: Page 2</h1>
-    <NuxtLink class="underline hover:no-underline" to="/">
+    <h1 class="text-6xl w-full">Multi Analytics: Page 2</h1>
+    <NuxtLink class="underline hover:no-underline text-2xl" to="/">
       Go to page 1
     </NuxtLink>
     <p class="w-full">This button will trigger an event</p>
