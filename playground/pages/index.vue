@@ -12,6 +12,17 @@
     <UButton @click="haveConsent ? revokeConsent() : grantConsent()"
       >Toggle consent</UButton
     >
+    <h2 class="w-full text-2xl">Meta Pixel options</h2>
+    <ClientOnly>
+      <div class="w-full">
+        <code>
+          <pre>
+        {{ metaPixel.options }}
+    </pre
+          >
+        </code>
+      </div>
+    </ClientOnly>
   </UContainer>
 </template>
 
