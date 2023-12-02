@@ -4,6 +4,9 @@
     <NuxtLink class="underline hover:no-underline text-2xl" to="/page2">
       Go to page 2
     </NuxtLink>
+    <NuxtLink class="underline hover:no-underline text-2xl" to="/pixelsOptions">
+      Pixels options
+    </NuxtLink>
     <p class="w-full">This button will trigger an event</p>
     <UButton @click="onClick">Track lead</UButton>
     <h2 class="text-4xl w-full">Analytics are active: {{ haveConsent }}</h2>
