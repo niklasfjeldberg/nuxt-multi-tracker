@@ -84,6 +84,15 @@ const {
 } = useMetaPixel();
 ```
 
+## 💻 Development
+
+1. Clone this repository
+2. Install dependencies using `npm install`
+3. Run `npm run dev:prepare`
+4. Start development server using `npm run dev`
+
+Read "[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary)" for naming your commits.
+
 <!-- Badges -->
 
 [npm-version-src]: https://img.shields.io/npm/v/nuxt-multi-analytics/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
