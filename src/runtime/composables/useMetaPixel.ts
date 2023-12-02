@@ -1,7 +1,8 @@
 import { computed, useRuntimeConfig, useState } from '#imports';
 import { defu } from 'defu';
-import { useInfo, useWarn } from './useLog';
+import { useInfo, useLogError, useWarn } from './useLog';
 import useConsent from './useConsent';
+/* import { useUserData } from './states'; */
 import { metaStandardEvents } from '../consts/eventNames';
 
 import type {
@@ -11,21 +12,22 @@ import type {
   MetaPixelCmd,
   MetaModuleOptions,
   MetaPixelOptions,
-} from '~/src/runtime/types';
+} from '../types';
 
 export default function (input?: MetaModuleOptions) {
   const { meta, disabled, debug } = useRuntimeConfig().public.multiAnalytics;
 
-  const options = useState<MetaPixelOptions>('metaPixelOptions', () => {
-    return {
+  const options = useState<MetaPixelOptions>('metaPixelOptions');
+
+  if (!options.value) {
+    options.value = {
       ...defu(input, meta as MetaModuleOptions),
-      fbq: null,
-      fqbLoaded: false,
+      pixelLoaded: false,
       isEnabled: !disabled,
       userData: null,
       eventsQueue: [],
     };
-  });
+  }
 
   if (!options.value.pixelID) useWarn('pixelID is not set.');
 
@@ -64,9 +66,12 @@ export default function (input?: MetaModuleOptions) {
         /* eslint-enable */
 
         const onLoadCallback = () => {
-          options.value.fbq = window.fbq;
-          options.value.fqbLoaded = true;
-          track(); // If not track(), you need send() for init() to take affect.
+          if (!window.fbq) {
+            useLogError('fbq was loaded but is not avaible in "window".');
+          } else {
+            options.value.pixelLoaded = true;
+            track(); // If not track(), you need send() for init() to take affect.
+          }
         };
 
         if (t.readyState) {
@@ -139,8 +144,8 @@ export default function (input?: MetaModuleOptions) {
    */
   const init = () => {
     if (pixelDisabled.value) return;
-    if (!options.value.fqbLoaded) setFbq();
-    if (meta.manualMode)
+    if (!options.value.pixelLoaded) setFbq();
+    if (options.value.manualMode)
       query('set', 'autoConfig', false, options.value.pixelID);
     query('init', options.value.pixelID, options.value.userData || undefined);
   };
@@ -204,13 +209,7 @@ export default function (input?: MetaModuleOptions) {
   };
 
   const send = () => {
-    if (!options.value.fqbLoaded) return;
-    /*     if (!options.value.fqbLoaded) {
-      let i = 0;
-      while (!options.value.fqbLoaded && i <= 1000) {
-        i += 1;
-      }
-    } */
+    if (!options.value.pixelLoaded) return;
 
     while (options.value.eventsQueue.length) {
       const event = options.value.eventsQueue.shift();
@@ -219,16 +218,11 @@ export default function (input?: MetaModuleOptions) {
 
       if (event) {
         if (event.eventID) {
-          options.value.fbq(
-            event.cmd,
-            event.option,
-            event.parameters,
-            event.eventID,
-          );
+          window.fbq(event.cmd, event.option, event.parameters, event.eventID);
         } else if (event.parameters) {
-          options.value.fbq(event.cmd, event.option, event.parameters);
+          window.fbq(event.cmd, event.option, event.parameters);
         } else {
-          options.value.fbq(event.cmd, event.option);
+          window.fbq(event.cmd, event.option);
         }
       }
     }

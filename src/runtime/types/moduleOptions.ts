@@ -1,4 +1,9 @@
-import type { MetaEventNames, MetaApiVersion, RedditApiVersion } from './index';
+import type {
+  MetaEventNames,
+  MetaApiVersion,
+  RedditApiVersion,
+  RedditEventNames,
+} from './index';
 
 export interface MetaModuleOptions {
   pixelID: string | null;
@@ -13,9 +18,9 @@ export interface MetaModuleOptions {
 }
 
 export interface RedditModuleOptions {
-  accountID: string | null;
-  version?: RedditApiVersion;
-  disabled?: boolean;
+  pixelID: string | null;
+  track: RedditEventNames;
+  version: RedditApiVersion;
 }
 
 export interface ModuleOptions {

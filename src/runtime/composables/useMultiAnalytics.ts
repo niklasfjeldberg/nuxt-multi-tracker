@@ -1,14 +1,21 @@
 /* import { useState, useRuntimeConfig } from '#imports'; */
 import { useInfo } from './useLog';
+
+// Pixels
 import useMetaPixel from './useMetaPixel';
+import useRedditPixel from './useRedditPixel';
+
+// Other
 import useConsent from './useConsent';
 import type { MetaEventNames, MetaUserData, MetaParameters } from '../types';
+import { metaToRedditEvents } from '../consts/eventNames';
 
 export default function () {
   const { haveConsent } = useConsent();
 
   // Const all pixels
   const metaPixel = useMetaPixel();
+  const redditPixel = useRedditPixel();
 
   /**
    * @method init
@@ -17,6 +24,7 @@ export default function () {
   const init = () => {
     useInfo('init all pixels');
     metaPixel.init();
+    redditPixel.init();
   };
 
   /**
@@ -31,6 +39,11 @@ export default function () {
     if (!haveConsent.value) return;
     useInfo('track with all pixels');
     metaPixel.track(eventName, parameters, eventID);
+    redditPixel.track(
+      eventName ? metaToRedditEvents[eventName] : eventName,
+      parameters,
+      eventID,
+    );
   };
 
   /**

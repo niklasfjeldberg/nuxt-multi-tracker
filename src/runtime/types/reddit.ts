@@ -1,3 +1,5 @@
+import type { RedditModuleOptions } from './index';
+
 // https://reddit.my.site.com/helpcenter/s/article/Install-the-Reddit-Pixel-on-your-website
 export type RedditEventNames =
   | 'PageVisit'
@@ -10,12 +12,21 @@ export type RedditEventNames =
   | 'SignUp'
   | 'Custom';
 
-export type RedditPixelMode = 'init' | 'track';
+export type RedditPixelCmd = 'init' | 'track';
 
 export type RedditApiVersion = '2.0';
 
+// Options for useRedditPixel
+export interface RedditPixelOptions extends RedditModuleOptions {
+  pixelLoaded: boolean;
+  isEnabled: boolean;
+  userData: RedditUserData | null;
+  eventsQueue: any[];
+}
+
+// Reddit Pixel Event Metadata
 // https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Event-Metadata
-export type RedditEventMetadata = {
+export type RedditParams = {
   customEventName?: string;
   itemCount?: number;
   value?: number;
@@ -24,15 +35,23 @@ export type RedditEventMetadata = {
   transactionId?: string;
 };
 
+// Reddit Pixel Advanced Matching
 // https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Advanced-Matching
-export type RedditAdvancedMatching = {
-  email?: string;
+export interface RedditUserData {
+  email?: string; // Read docs for format needed.
   externalId?: string;
   idfa?: string;
   aaid?: string;
+}
+
+export interface RedditParamsInit extends RedditUserData {
   optOut?: boolean;
   useDecimalCurrencyValues?: boolean;
-};
+}
+
+// ---------------------
+// Reddit Conversion API
+// ---------------------
 
 export interface RedditEvent {
   event_at: string;

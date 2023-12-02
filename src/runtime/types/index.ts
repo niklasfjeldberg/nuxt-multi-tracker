@@ -1,6 +1,7 @@
 // Other
 export type * from './countryCodes';
 export type * from './moduleOptions';
+export type * from './shared';
 
 // Social media
 export type * from './reddit';

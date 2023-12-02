@@ -107,10 +107,9 @@ interface MetaEventAny {
   eventID: MetaEventID;
 }
 
-// Used in the composable
 export interface MetaPixelOptions extends MetaModuleOptions {
-  fbq: any;
-  fqbLoaded: boolean;
+  /* fbq: any; */
+  pixelLoaded: boolean;
   isEnabled: boolean;
   userData: MetaUserData | null;
   eventsQueue: MetaEventAny[];

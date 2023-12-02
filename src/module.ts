@@ -40,6 +40,11 @@ export default defineNuxtModule<ModuleOptions>({
         version: '2.0',
         manualMode: false,
       },
+      reddit: {
+        pixelID: null,
+        version: '2.0',
+        track: 'PageVisit',
+      },
     },
   },
   setup(options, nuxt) {

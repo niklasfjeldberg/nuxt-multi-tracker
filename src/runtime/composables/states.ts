@@ -1,12 +1,5 @@
 import { useState } from '#imports';
 
-export const useStatePixels = useState('pixels', () => {
-  return {
-    '1231232131': null,
-  };
-});
+import type { SharedUserData } from '../types';
 
-export const useMetaPixelFunction = useState(
-  'metaPixelFunction',
-  () => function () {},
-);
+export const useUserData = useState<SharedUserData>('sharedUserData');
