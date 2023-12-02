@@ -62,10 +62,16 @@ export default defineNuxtConfig({
 
 ## Composables
 
+### `useConsent`
+
+```ts
+const { haveConsent, grantConsent, revokeConsent } = useConsent();
+```
+
 ### `useMultiAnalytics`
 
 ```ts
-const { haveConsent, grantConsent, revokeConsent } = useMultiAnalytics();
+const { track, init, setUserData } = useMultiAnalytics();
 ```
 
 ### `useMetaPixel`
