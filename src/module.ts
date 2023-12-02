@@ -1,19 +1,67 @@
-import { defineNuxtModule, addPlugin, createResolver } from "@nuxt/kit";
+import {
+  defineNuxtModule,
+  addImportsDir,
+  createResolver,
+  addPlugin,
+} from '@nuxt/kit';
+import { moduleName, configKey, moduleVersion } from './config';
 
-// Module options TypeScript interface definition
-export interface ModuleOptions {}
+import type { ModuleOptions } from './runtime/types';
+export * from './runtime/types';
+
+import { defu } from 'defu';
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: "nuxt-reddit-conversion-api",
-    configKey: "reddit",
+    name: moduleName,
+    version: moduleVersion,
+    configKey: configKey,
+    compatibility: {
+      nuxt: '^3.8.0',
+    },
   },
-  // Default configuration options of the Nuxt module
-  defaults: {},
+  defaults: {
+    private: {
+      redditApiKey: null,
+      metaApiKey: null,
+      snapchatApiKey: null,
+      tiktokApiKey: null,
+      twitterApiKey: null,
+    },
+    public: {
+      initialConsent: false,
+      debug: false,
+      autoPageView: true,
+      loadingStrategy: 'async',
+      disabled: false,
+      meta: {
+        pixelID: null,
+        track: 'PageView',
+        version: '2.0',
+        manualMode: false,
+      },
+    },
+  },
   setup(options, nuxt) {
-    const resolver = createResolver(import.meta.url);
+    nuxt.options.runtimeConfig.multiAnalytics = defu(
+      nuxt.options.runtimeConfig.multiAnalytics,
+      options.private,
+    );
+    nuxt.options.runtimeConfig.public.multiAnalytics = defu(
+      nuxt.options.runtimeConfig.public.multiAnalytics,
+      options.public,
+    );
+
+    const { resolve } = createResolver(import.meta.url);
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-    addPlugin(resolver.resolve("./runtime/plugin"));
+    addImportsDir(resolve('./runtime/composables'));
+    /* addImportsDir(resolve('./config')); */
+    /* addImportsDir(resolve('./runtime/types')); */
+
+    addPlugin({
+      src: resolve('runtime/plugins/multiAnalytics.client'),
+      mode: 'client',
+    });
   },
 });
