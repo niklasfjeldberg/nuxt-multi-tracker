@@ -1,8 +1,8 @@
 {
-  "name": "nuxt-reddit-conversion-api",
+  "name": "nuxt-multi-analytics",
   "version": "0.0.1",
-  "description": "Nuxt 3 Reddit Conversion API (CAPI)",
-  "repository": "niklasfjeldberg/nuxt-reddit-conversion-api",
+  "description": "Nuxt 3 Multi Analytics",
+  "repository": "https://github.com/niklasfjeldberg/nuxt-multi-analytics",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -28,18 +28,23 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.8.2"
+    "@nuxt/kit": "^3.8.2",
+    "@nuxt/ui": "^2.11.0",
+    "sha.js": "^2.4.11"
   },
   "devDependencies": {
-    "@types/node": "^20.9.3",
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/module-builder": "^0.5.4",
     "@nuxt/schema": "^3.8.2",
     "@nuxt/test-utils": "^3.8.1",
+    "@types/node": "^20.9.3",
     "changelogen": "^0.5.5",
     "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "nuxt": "^3.8.2",
+    "prettier": "^3.1.0",
     "vitest": "^0.33.0"
   }
 }
