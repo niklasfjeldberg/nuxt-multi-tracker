@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.1.0
+
+[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.0.3...v0.1.0)
+
+### 🩹 Fixes
+
+- ⚠️  Changed configkey to new package name ([83471fd](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/83471fd))
+- Create LICENSE ([a3fac19](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a3fac19))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Changed configkey to new package name ([83471fd](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/83471fd))
+
+### ❤️ Contributors
+
+- Niklas 
+- Niklas Fjeldberg <github@fjeldberg.me>
+
 ## v0.0.3
 
 [compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.0.2...v0.0.3)
