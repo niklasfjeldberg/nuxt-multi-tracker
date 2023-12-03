@@ -52,7 +52,7 @@ npm install --save-dev nuxt-multi-tracker
 export default defineNuxtConfig({
   modules: ['nuxt-multi-tracker'],
 
-  multiAnalytics: {
+  multiTracker: {
     initialConsent: false,
     debug: false,
     autoPageView: true,
