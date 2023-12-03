@@ -10,7 +10,6 @@ import type {
   RedditPixelOptions,
   RedditUserData,
   RedditParams,
-  RedditPixelCmd,
   RedditQuery,
 } from '~/src/runtime/types';
 
