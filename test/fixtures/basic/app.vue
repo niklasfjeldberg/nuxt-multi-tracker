@@ -1,5 +1,8 @@
 <template>
-  <div>{{ haveConsent }}</div>
+  <div>
+    <div>basic</div>
+    <div>{{ haveConsent }}</div>
+  </div>
 </template>
 
 <script setup>
