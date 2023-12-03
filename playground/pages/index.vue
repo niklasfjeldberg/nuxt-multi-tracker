@@ -8,7 +8,8 @@
       Pixels options
     </NuxtLink>
     <p class="w-full">This button will trigger an event</p>
-    <UButton @click="onClick">Track lead</UButton>
+    <UButton @click="onClick">Track lead w/ user data</UButton>
+    <UButton @click="onClick2">Track lead</UButton>
     <h2 class="text-4xl w-full">Analytics are active: {{ haveConsent }}</h2>
     <UButton @click="grantConsent">Grant consent</UButton>
     <UButton @click="revokeConsent">Revoke consent</UButton>
@@ -22,6 +23,10 @@
 const { track, setUserData } = useMultiAnalytics();
 
 const { grantConsent, revokeConsent, haveConsent } = useConsent();
+
+const onClick2 = () => {
+  track('Lead', null, String(new Date().getTime()));
+};
 
 const onClick = () => {
   setUserData({
