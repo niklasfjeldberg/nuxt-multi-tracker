@@ -8,7 +8,7 @@
 Pixel's and Conversion APIs for most popular social media nettworks.
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
-  <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-multi-analytics?file=playground%2Fapp.vue) -->
+  <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-multi-tracker?file=playground%2Fapp.vue) -->
   <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Features
@@ -37,20 +37,20 @@ Pixel's and Conversion APIs for most popular social media nettworks.
 
 ```bash
 # Using pnpm
-pnpm add -D nuxt-multi-analytics
+pnpm add -D nuxt-multi-tracker
 
 # Using yarn
-yarn add --dev nuxt-multi-analytics
+yarn add --dev nuxt-multi-tracker
 
 # Using npm
-npm install --save-dev nuxt-multi-analytics
+npm install --save-dev nuxt-multi-tracker
 ```
 
 ## Basic Usage
 
 ```js
 export default defineNuxtConfig({
-  modules: ['nuxt-multi-analytics'],
+  modules: ['nuxt-multi-tracker'],
 
   multiAnalytics: {
     initialConsent: false,
@@ -134,11 +134,11 @@ Read "[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summ
 
 <!-- Badges -->
 
-[npm-version-src]: https://img.shields.io/npm/v/nuxt-multi-analytics/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
-[npm-version-href]: https://npmjs.com/package/nuxt-multi-analytics
-[npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-multi-analytics.svg?style=flat&colorA=18181B&colorB=28CF8D
-[npm-downloads-href]: https://npmjs.com/package/nuxt-multi-analytics
-[license-src]: https://img.shields.io/npm/l/nuxt-multi-analytics.svg?style=flat&colorA=18181B&colorB=28CF8D
-[license-href]: https://npmjs.com/package/nuxt-multi-analytics
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-multi-tracker/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
+[npm-version-href]: https://npmjs.com/package/nuxt-multi-tracker
+[npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-multi-tracker.svg?style=flat&colorA=18181B&colorB=28CF8D
+[npm-downloads-href]: https://npmjs.com/package/nuxt-multi-tracker
+[license-src]: https://img.shields.io/npm/l/nuxt-multi-tracker.svg?style=flat&colorA=18181B&colorB=28CF8D
+[license-href]: https://npmjs.com/package/nuxt-multi-tracker
 [nuxt-src]: https://img.shields.io/badge/Nuxt-18181B?logo=nuxt.js
 [nuxt-href]: https://nuxt.com

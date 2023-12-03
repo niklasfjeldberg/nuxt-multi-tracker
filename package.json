@@ -1,8 +1,8 @@
 {
-  "name": "nuxt-multi-analytics",
+  "name": "nuxt-multi-tracker",
   "version": "0.0.2",
   "description": "Nuxt 3 Multi Analytics",
-  "repository": "https://github.com/niklasfjeldberg/nuxt-multi-analytics",
+  "repository": "https://github.com/niklasfjeldberg/nuxt-multi-tracker",
   "license": "MIT",
   "type": "module",
   "exports": {

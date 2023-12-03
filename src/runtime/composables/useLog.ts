@@ -2,7 +2,7 @@ import { useRuntimeConfig } from '#imports';
 /* getMeta */
 /* import { moduleName } from '~~/src/config'; */
 
-const moduleName = 'nuxt-multi-analytics';
+const moduleName = 'nuxt-multi-tracker';
 
 /*
  * The const "debug" must be in each individual function.
@@ -12,7 +12,7 @@ const moduleName = 'nuxt-multi-analytics';
 export const useInfo = (...messages: any) => {
   const { debug } = useRuntimeConfig().public.multiAnalytics;
   if (debug) console.info.apply(console, [`[${moduleName}]`, ...messages]);
-  /* console.info.apply(['[nuxt-multi-analytics]', ...messages]); */
+  /* console.info.apply(['[nuxt-multi-tracker]', ...messages]); */
 };
 export const useGroup = (...messages: any) => {
   const { debug } = useRuntimeConfig().public.multiAnalytics;
