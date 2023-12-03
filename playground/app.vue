@@ -4,6 +4,6 @@
 
 <script setup>
 useSeoMeta({
-  title: 'Nuxt Multi Analytics',
+  title: 'Nuxt Multi Tracker',
 });
 </script>

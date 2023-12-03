@@ -1,6 +1,6 @@
 <template>
   <UContainer class="py-20 flex flex-row flex-wrap gap-4 w-full">
-    <h1 class="text-6xl w-full">Multi Analytics: Page 1</h1>
+    <h1 class="text-6xl w-full">Nuxt Multi Tracker: Frontpage</h1>
     <NuxtLink class="underline hover:no-underline text-2xl" to="/page2">
       Go to page 2
     </NuxtLink>
