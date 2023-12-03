@@ -21,8 +21,9 @@ export default function (input?: RedditModuleOptions) {
   const options = useState<RedditPixelOptions>('redditPixelOptions');
 
   if (!options.value) {
+    const temp = defu(input, reddit as RedditModuleOptions);
     options.value = {
-      ...defu(input, reddit as RedditModuleOptions),
+      ...temp,
       pixelLoaded: false,
       isEnabled: !disabled,
       userData: null,

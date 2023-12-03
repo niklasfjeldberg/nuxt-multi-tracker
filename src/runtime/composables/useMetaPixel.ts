@@ -21,8 +21,9 @@ export default function (input?: MetaModuleOptions) {
   const pixelType = 'Meta';
 
   if (!options.value) {
+    const temp = defu(input, meta as MetaModuleOptions);
     options.value = {
-      ...defu(input, meta as MetaModuleOptions),
+      ...temp,
       pixelLoaded: false,
       isEnabled: !disabled,
       userData: null,
