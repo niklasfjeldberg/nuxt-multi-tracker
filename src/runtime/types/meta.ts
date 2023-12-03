@@ -3,6 +3,7 @@
 import type {
   LowercaseTwoLetterCountryCodes,
   MetaModuleOptions,
+  CurrencyCodes,
 } from './index';
 
 export type MetaEventNames =
@@ -39,38 +40,41 @@ export type MetaPixelCmd =
   | 'trackSingle'
   | 'trackSingleCustom';
 
-export interface MetaPixelCmdInit {
-  cmd: 'init';
-  pixelID: string;
-  userData?: MetaUserData;
-}
-
 // https://developers.facebook.com/docs/meta-pixel/advanced/#automatic-configuration
 // There are more options than "autoConfig"!
-export interface MetaPixelCmdSet {
-  cmd: 'set';
-  option: 'autoConfig';
-  activate: boolean;
-  pixelID: string;
+
+export interface MetaQuery {
+  (
+    cmd: 'set',
+    option: 'autoConfig',
+    params: boolean,
+    eventID: string | null,
+  ): void;
+  (
+    cmd: 'init',
+    option: string | null,
+    params: MetaUserData | null,
+    eventID?: null,
+  ): void;
+  (
+    cmd: 'track' | 'trackCustom',
+    option: MetaEventNames,
+    params: MetaParameters | null,
+    eventID: string | null,
+  ): void;
 }
 
-export interface MetaPixelCmdTrack {
-  cmd: 'track' | 'trackCustom';
-  eventName: MetaEventNames;
-  parameters?: MetaParameters;
-  eventID?: MetaEventID;
-}
-
-export interface MetaPixelCmdTrackSingle {
+/* export interface MetaPixelCmdTrackSingle {
   cmd: 'trackSingle' | 'trackSingleCustom';
   pixelID: string;
   eventName: MetaEventNames;
   parameters?: MetaParameters;
   eventID?: MetaEventID;
-}
+} */
 
 // https://developers.facebook.com/docs/meta-pixel/advanced/advanced-matching#reference
 export interface MetaUserData {
+  [key: string]: any;
   em?: string; // Unhashed lowercase or hashed SHA-256
   fn?: string; // Lowercase letters
   ln?: string; // Lowercase letters
@@ -91,7 +95,7 @@ export interface MetaParameters {
   content_name?: string;
   content_type?: string;
   contents?: any[];
-  currency?: string;
+  currency?: CurrencyCodes;
   num_items?: number;
   predicted_ltv?: number;
   search_string?: string;
@@ -103,8 +107,8 @@ export interface MetaParameters {
 interface MetaEventAny {
   cmd: MetaPixelCmd;
   option: string | null;
-  parameters: any;
-  eventID: MetaEventID;
+  params: any;
+  eventID: string | null; // MetaEventID
 }
 
 export interface MetaPixelOptions extends MetaModuleOptions {
@@ -116,9 +120,22 @@ export interface MetaPixelOptions extends MetaModuleOptions {
 }
 
 /* declare namespace MetaPixel {
+
+| facebook.Pixel.ViewContentParameters
+                | ViewContentParameters
+                | SearchParameters
+                | AddToCartParameters
+                | AddToWishlistParameters
+                | InitiateCheckoutParameters
+                | AddPaymentInfoParameters
+                | PurchaseParameters
+                | LeadParameters
+                | CompleteRegistrationParameters
+                | CustomParameters,
+
   interface ViewContentParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_name?: string | undefined;
     content_type?: string | undefined;
     content_ids?: string[] | undefined;
@@ -132,7 +149,7 @@ export interface MetaPixelOptions extends MetaModuleOptions {
   }
   interface SearchParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_category?: string | undefined;
     content_ids?: string[] | undefined;
     search_string?: string | undefined;
@@ -140,7 +157,7 @@ export interface MetaPixelOptions extends MetaModuleOptions {
 
   interface AddToCartParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_name?: string | undefined;
     content_type?: string | undefined;
     content_ids?: string[] | undefined;
@@ -148,7 +165,7 @@ export interface MetaPixelOptions extends MetaModuleOptions {
 
   interface AddToWishlistParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_name?: string | undefined;
     content_category?: string | undefined;
     content_ids?: string[] | undefined;
@@ -156,7 +173,7 @@ export interface MetaPixelOptions extends MetaModuleOptions {
 
   interface InitiateCheckoutParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_name?: string | undefined;
     content_category?: string | undefined;
     content_ids?: string[] | undefined;
@@ -165,14 +182,14 @@ export interface MetaPixelOptions extends MetaModuleOptions {
 
   interface AddPaymentInfoParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_category?: string | undefined;
     content_ids?: string[] | undefined;
   }
 
   interface PurchaseParameters {
     value: number;
-    currency: string;
+    currency: CurrencyCodes;
     content_name?: string | undefined;
     content_type?: string | undefined;
     content_ids?: string[] | undefined;
@@ -182,14 +199,14 @@ export interface MetaPixelOptions extends MetaModuleOptions {
 
   interface LeadParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_name?: string | undefined;
     content_category?: string | undefined;
   }
 
   interface CompleteRegistrationParameters {
     value?: number | undefined;
-    currency?: string | undefined;
+    currency?: CurrencyCodes | undefined;
     content_name?: string | undefined;
     status?: boolean | undefined;
   }

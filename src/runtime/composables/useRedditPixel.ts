@@ -1,6 +1,6 @@
-import { computed, useRuntimeConfig, useState } from '#imports';
+import { computed, useHead, useRuntimeConfig, useState, toRaw } from '#imports';
 import { defu } from 'defu';
-import { useInfo, useWarn } from './useLog';
+import { useInfo, useWarn, useLogError } from './useLog';
 import useConsent from './useConsent';
 import { redditStandardEvents } from '../consts/eventNames';
 
@@ -11,12 +11,13 @@ import type {
   RedditUserData,
   RedditParams,
   RedditPixelCmd,
+  RedditQuery,
 } from '~/src/runtime/types';
 
 export default function (input?: RedditModuleOptions) {
   const { reddit, disabled, debug } = useRuntimeConfig().public.multiAnalytics;
 
-  const pixelType = 'Meta';
+  const pixelType = 'Reddit';
 
   const options = useState<RedditPixelOptions>('redditPixelOptions');
 
@@ -54,32 +55,31 @@ export default function (input?: RedditModuleOptions) {
               : p.callQueue.push(arguments);
           });
           p.callQueue = [];
-          var t = d.createElement('script');
-          (t.src = 'https://www.redditstatic.com/ads/pixel.js'), (t.async = !0);
-          var s = d.getElementsByTagName('script')[0];
-          s.parentNode.insertBefore(t, s);
         }
-
-        console.log(t);
       })(window, document);
       /* eslint-enable */
-
-      /* const onLoadCallback = () => {
-          options.value.pixelLoaded = true;
-          track(); // If not track(), you need send() for init() to take affect.
-        };
-
-        if (t.readyState) {
-          t.onreadystatechange = function () {
-            if (t.readyState === 'loaded' || t.readyState === 'complete') {
-              t.onreadystatechange = null;
-              onLoadCallback();
-            }
-          };
-        } else {
-          t.onload = onLoadCallback;
-        } */
     }
+    useHead({
+      script: [
+        {
+          hid: 'redditPixel',
+          src: 'https://www.redditstatic.com/ads/pixel.js',
+          onload: () => scriptLoaded(),
+          defer: true,
+          async: true,
+        },
+      ],
+    });
+    const scriptLoaded = () => {
+      if (!window.rdt) {
+        useLogError(
+          `(${pixelType}) rdt was loaded but is not avaible in "window".`,
+        );
+      } else {
+        options.value.pixelLoaded = true;
+        track();
+      }
+    };
   };
 
   /**
@@ -98,9 +98,10 @@ export default function (input?: RedditModuleOptions) {
    * @param {object} [initPixel] Automatically init pixel with new data.
    */
   const setUserData = (
-    newUserData: RedditUserData,
+    newUserData?: RedditUserData,
     initPixel: boolean = true,
   ) => {
+    if (!newUserData) return;
     // If data is same (INCLUDING PROP ORDER) skip setting user data.
     if (
       JSON.stringify(options.value.userData) !== JSON.stringify(newUserData)
@@ -145,46 +146,39 @@ export default function (input?: RedditModuleOptions) {
   /**
    * @method track
    * @param {string} [eventName] See same for event names.
-   * @param {object} [parameters] See https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Event-Metadata
+   * @param {object} [params] See https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Event-Metadata
    */
   const track = (
     eventName: RedditEventNames | null = null,
-    parameters: RedditParams | null = null,
+    params: RedditParams | null = null,
     eventID: string | null = null,
   ) => {
     if (pixelDisabled.value) return;
 
     if (!eventName) eventName = options.value.track;
 
-    if (redditStandardEvents.includes(eventName!)) {
-      query('track', eventName, {
-        ...parameters,
-        conversionId: eventID,
-      });
+    const metaData = { ...params };
+    if (eventID) metaData.conversionId = eventID;
+
+    if (redditStandardEvents.includes(eventName)) {
+      query('track', eventName, { ...metaData });
     } else {
-      query('track', 'Custom', {
-        customEventName: eventName,
-        conversionId: eventID,
-        ...parameters,
-      });
+      metaData.customEventName = eventName;
+      query('track', 'Custom', { ...metaData });
     }
   };
 
   /**
    * @method query
    * @param {string} [cmd] command
-   * @param {object} [option]
+   * @param {string} [option]
    * @param {object} [params]
    */
-  const query = (
-    cmd: RedditPixelCmd,
-    option: string | null = null,
-    params: any = null,
-  ) => {
+  const query: RedditQuery = (cmd, option, params) => {
     // Disable tracking if module is disabled or user consent is not given.
     if (pixelDisabled.value) return;
 
-    useInfo('Command:', cmd, 'Option:', option, 'Parameters:', params);
+    useInfo(`(${pixelType}) Cmd:`, cmd, 'Option:', option, 'Params:', params);
 
     options.value.eventsQueue.push({
       cmd,
@@ -201,13 +195,14 @@ export default function (input?: RedditModuleOptions) {
     while (options.value.eventsQueue.length) {
       const event = options.value.eventsQueue.shift();
 
-      if (debug) useInfo('Send event: ', event);
+      if (debug) useInfo(`(${pixelType}) Send event: `, toRaw(event));
 
       if (event) {
-        if (event.eventID) {
-          window.rdt(event.cmd, event.option, event.parameters, event.eventID);
-        } else if (event.parameters) {
-          window.rdt(event.cmd, event.option, event.parameters);
+        /*
+         * WARNING: Error "#<Object> could not be cloned" will happen if you do not clone proxy consts.
+         */
+        if (event.params) {
+          window.rdt(event.cmd, event.option, toRaw(event.params));
         } else {
           window.rdt(event.cmd, event.option);
         }

@@ -1,5 +1,4 @@
-/* import { useState, useRuntimeConfig } from '#imports'; */
-import { useInfo } from './useLog';
+import { useGroup, useGroupEnd, useLogError } from './useLog';
 
 // Pixels
 import useMetaPixel from './useMetaPixel';
@@ -7,8 +6,16 @@ import useRedditPixel from './useRedditPixel';
 
 // Other
 import useConsent from './useConsent';
-import type { MetaEventNames, MetaUserData, MetaParameters } from '../types';
-import { metaToRedditEvents } from '../consts/eventNames';
+import type {
+  MetaEventNames,
+  MetaUserData,
+  MetaParameters,
+  RedditUserData,
+} from '../types';
+import {
+  metaToRedditEventNames,
+  metaToRedditUserData,
+} from '../consts/eventNames';
 
 export default function () {
   const { haveConsent } = useConsent();
@@ -22,9 +29,11 @@ export default function () {
    * Initilize all active pixels.
    */
   const init = () => {
-    useInfo('init all pixels');
+    if (!haveConsent.value) return;
+    useGroup('init all pixels');
     metaPixel.init();
     redditPixel.init();
+    useGroupEnd();
   };
 
   /**
@@ -37,13 +46,31 @@ export default function () {
     eventID: string | null = null,
   ) => {
     if (!haveConsent.value) return;
-    useInfo('track with all pixels');
+    useGroup('track with all pixels');
     metaPixel.track(eventName, parameters, eventID);
     redditPixel.track(
-      eventName ? metaToRedditEvents[eventName] : eventName,
+      eventName ? metaToRedditEventNames[eventName] : eventName,
       parameters,
       eventID,
     );
+    useGroupEnd();
+  };
+
+  const cleanMetaInput = (input: MetaUserData, type: string = 'reddit') => {
+    const output: RedditUserData = {}; // add others?
+    let metaTo;
+    if (type === 'reddit') {
+      metaTo = metaToRedditUserData;
+    } else {
+      useLogError('cleanMetaInput has not account for type', type);
+      return;
+    }
+    for (const el in input) {
+      if (metaTo[el]) {
+        output[metaTo[el]] = input[el];
+      }
+    }
+    return output;
   };
 
   /**
@@ -52,8 +79,10 @@ export default function () {
    */
   const setUserData = (input: MetaUserData, initPixel: boolean = true) => {
     if (!haveConsent.value) return;
-    useInfo('set userdata for all pixels');
+    useGroup('set userdata for all pixels');
     metaPixel.setUserData(input, initPixel);
+    redditPixel.setUserData(cleanMetaInput(input));
+    useGroupEnd();
   };
 
   return {

@@ -10,7 +10,10 @@ export default defineNuxtConfig({
       disabled: false,
       initialConsent: false,
       meta: {
-        pixelID: process.env.META_PIXEL_ID,
+        pixelID: 'xxxxxxxxx',
+      },
+      reddit: {
+        pixelID: 'xxxxxxxxx',
       },
     },
   },

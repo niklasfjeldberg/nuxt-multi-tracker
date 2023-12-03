@@ -1,4 +1,4 @@
-import { computed, useRuntimeConfig, useState } from '#imports';
+import { computed, useRuntimeConfig, useState, useHead, toRaw } from '#imports';
 import { defu } from 'defu';
 import { useInfo, useLogError, useWarn } from './useLog';
 import useConsent from './useConsent';
@@ -9,7 +9,7 @@ import type {
   MetaUserData,
   MetaEventNames,
   MetaParameters,
-  MetaPixelCmd,
+  MetaQuery,
   MetaModuleOptions,
   MetaPixelOptions,
 } from '../types';
@@ -18,6 +18,7 @@ export default function (input?: MetaModuleOptions) {
   const { meta, disabled, debug } = useRuntimeConfig().public.multiAnalytics;
 
   const options = useState<MetaPixelOptions>('metaPixelOptions');
+  const pixelType = 'Meta';
 
   if (!options.value) {
     options.value = {
@@ -29,7 +30,7 @@ export default function (input?: MetaModuleOptions) {
     };
   }
 
-  if (!options.value.pixelID) useWarn('pixelID is not set.');
+  if (!options.value.pixelID) useWarn(`(${pixelType}) pixelID is not set.`);
 
   const { haveConsent } = useConsent();
 
@@ -57,40 +58,30 @@ export default function (input?: MetaModuleOptions) {
         n.loaded = !0;
         n.version = options.value.version;
         n.queue = [];
-        t = b.createElement(e);
-        t.async = true;
-        t.defer = true;
-        t.src = v;
-        s = b.getElementsByTagName('body')[0];
-        s.parentNode.appendChild(t, s);
         /* eslint-enable */
-
-        const onLoadCallback = () => {
-          if (!window.fbq) {
-            useLogError('fbq was loaded but is not avaible in "window".');
-          } else {
-            options.value.pixelLoaded = true;
-            track(); // If not track(), you need send() for init() to take affect.
-          }
-        };
-
-        if (t.readyState) {
-          t.onreadystatechange = function () {
-            if (t.readyState === 'loaded' || t.readyState === 'complete') {
-              t.onreadystatechange = null;
-              onLoadCallback();
-            }
-          };
-        } else {
-          t.onload = onLoadCallback;
-        }
-      })(
-        window,
-        document,
-        'script',
-        'https://connect.facebook.net/en_US/fbevents.js',
-      );
+      })(window, document);
     }
+    useHead({
+      script: [
+        {
+          hid: 'metaPixel',
+          src: 'https://connect.facebook.net/en_US/fbevents.js',
+          onload: () => scriptLoaded(),
+          defer: true,
+          async: true,
+        },
+      ],
+    });
+    const scriptLoaded = () => {
+      if (!window.rdt) {
+        useLogError(
+          `(${pixelType}) fbq was loaded but is not avaible in "window".`,
+        );
+      } else {
+        options.value.pixelLoaded = true;
+        track();
+      }
+    };
   };
 
   /**
@@ -98,7 +89,7 @@ export default function (input?: MetaModuleOptions) {
    */
   const setPixelId = (newPixelID: string) => {
     options.value.pixelID = newPixelID;
-    useInfo(`pixel id set to "${options.value.pixelID}"`);
+    useInfo(`(${pixelType}) pixel id set to "${options.value.pixelID}"`);
     init();
   };
 
@@ -112,6 +103,7 @@ export default function (input?: MetaModuleOptions) {
     newUserData: MetaUserData,
     initPixel: boolean = true,
   ) => {
+    if (!newUserData) return;
     // If data is same (INCLUDING PROP ORDER) skip setting user data.
     if (
       JSON.stringify(options.value.userData) !== JSON.stringify(newUserData)
@@ -147,7 +139,7 @@ export default function (input?: MetaModuleOptions) {
     if (!options.value.pixelLoaded) setFbq();
     if (options.value.manualMode)
       query('set', 'autoConfig', false, options.value.pixelID);
-    query('init', options.value.pixelID, options.value.userData || undefined);
+    query('init', options.value.pixelID, options.value.userData);
   };
 
   /**
@@ -174,26 +166,26 @@ export default function (input?: MetaModuleOptions) {
   /**
    * @method query
    * @param {string} [cmd] command
-   * @param {object} [option]
-   * @param {object} [parameters]
-   * @param {object} [eventID]
+   * @param {any} [option]
+   * @param {any} [params]
+   * @param {any} [eventID]
    */
-  const query = (
-    cmd: MetaPixelCmd,
-    option: string | null = null,
-    parameters: any = null,
-    eventID: string | null = null,
+  const query: MetaQuery = (
+    cmd,
+    option = null,
+    params = null,
+    eventID = null,
   ) => {
     // Disable tracking if module is disabled or user consent is not given.
     if (pixelDisabled.value) return;
 
     useInfo(
-      'Command:',
+      `(${pixelType}) Cmd:`,
       cmd,
       'Option:',
       option,
-      'Additional parameters:',
-      parameters,
+      'Params:',
+      params,
       'EventID:',
       eventID,
     );
@@ -201,8 +193,8 @@ export default function (input?: MetaModuleOptions) {
     options.value.eventsQueue.push({
       cmd,
       option,
-      parameters,
-      eventID: { eventID: eventID },
+      params,
+      eventID,
     });
 
     send();
@@ -214,13 +206,15 @@ export default function (input?: MetaModuleOptions) {
     while (options.value.eventsQueue.length) {
       const event = options.value.eventsQueue.shift();
 
-      if (debug) useInfo('Send event: ', event);
+      if (debug) useInfo(`(${pixelType}) Send event:`, toRaw(event));
 
       if (event) {
         if (event.eventID) {
-          window.fbq(event.cmd, event.option, event.parameters, event.eventID);
-        } else if (event.parameters) {
-          window.fbq(event.cmd, event.option, event.parameters);
+          window.fbq(event.cmd, event.option, event.params, {
+            eventID: { eventID: event.eventID },
+          });
+        } else if (event.params) {
+          window.fbq(event.cmd, event.option, event.params);
         } else {
           window.fbq(event.cmd, event.option);
         }

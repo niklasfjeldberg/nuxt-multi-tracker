@@ -1,4 +1,4 @@
-import type { RedditModuleOptions } from './index';
+import type { RedditModuleOptions, CurrencyCodes } from './index';
 
 // https://reddit.my.site.com/helpcenter/s/article/Install-the-Reddit-Pixel-on-your-website
 export type RedditEventNames =
@@ -30,7 +30,7 @@ export type RedditParams = {
   customEventName?: string;
   itemCount?: number;
   value?: number;
-  currency?: string;
+  currency?: CurrencyCodes;
   conversionId?: string;
   transactionId?: string;
 };
@@ -38,6 +38,7 @@ export type RedditParams = {
 // Reddit Pixel Advanced Matching
 // https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Advanced-Matching
 export interface RedditUserData {
+  [key: string]: any;
   email?: string; // Read docs for format needed.
   externalId?: string;
   idfa?: string;
@@ -47,6 +48,11 @@ export interface RedditUserData {
 export interface RedditParamsInit extends RedditUserData {
   optOut?: boolean;
   useDecimalCurrencyValues?: boolean;
+}
+
+export interface RedditQuery {
+  (cmd: 'track', option: RedditEventNames, params?: RedditParamsInit): void;
+  (cmd: 'init', option: string | null, params?: RedditParamsInit): void;
 }
 
 // ---------------------

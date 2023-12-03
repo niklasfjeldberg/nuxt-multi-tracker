@@ -4,12 +4,23 @@ import { useRuntimeConfig } from '#imports';
 
 const moduleName = 'nuxt-multi-analytics';
 
+/*
+ * The const "debug" must be in each individual function.
+ * If not we will gett ann "Nuxt instance" error.
+ */
+
 export const useInfo = (...messages: any) => {
   const { debug } = useRuntimeConfig().public.multiAnalytics;
-  if (debug) {
-    console.info(`[${moduleName}]`, ...messages);
-    /* console.info.apply(['[nuxt-multi-analytics]', ...messages]); */
-  }
+  if (debug) console.info.apply(console, [`[${moduleName}]`, ...messages]);
+  /* console.info.apply(['[nuxt-multi-analytics]', ...messages]); */
+};
+export const useGroup = (...messages: any) => {
+  const { debug } = useRuntimeConfig().public.multiAnalytics;
+  if (debug) console.group(`[${moduleName}]`, ...messages);
+};
+export const useGroupEnd = () => {
+  const { debug } = useRuntimeConfig().public.multiAnalytics;
+  if (debug) console.groupEnd();
 };
 
 export const useWarn = (...messages: any) => {

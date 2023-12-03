@@ -1,5 +1,6 @@
 // Other
 export type * from './countryCodes';
+export type * from './currencyCodes';
 export type * from './moduleOptions';
 export type * from './shared';
 

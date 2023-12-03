@@ -33,11 +33,11 @@ export const redditStandardEvents: RedditEventNames[] = [
   'Custom',
 ];
 
-interface MetaToRedditEvents {
+interface MetaToRedditEventsNames {
   [key: string]: RedditEventNames;
 }
 
-export const metaToRedditEvents: MetaToRedditEvents = {
+export const metaToRedditEventNames: MetaToRedditEventsNames = {
   PageView: 'PageVisit',
   ViewContent: 'ViewContent',
   Search: 'Search',
@@ -46,4 +46,12 @@ export const metaToRedditEvents: MetaToRedditEvents = {
   Purchase: 'Purchase',
   Lead: 'Lead',
   CompleteRegistration: 'SignUp',
+};
+
+interface Dict {
+  [key: string]: any;
+}
+
+export const metaToRedditUserData: Dict = {
+  em: 'email',
 };
