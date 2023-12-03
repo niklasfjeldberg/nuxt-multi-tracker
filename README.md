@@ -20,16 +20,18 @@ Pixel's and Conversion APIs for most popular social media nettworks.
 - 🦾 SSR-ready
 - 🔶 Supported pixels:
   - Meta (Facebook) pixel
+  - Reddit Pixel
 
 ## Planned features
 
-- Reddit Pixel & Conversion API (CAPI) [(documentation)](https://ads-api.reddit.com/docs/v2/#tag/Conversions)
-- Meta (Facebook) Conversion API (CAPI) [(documentation)]()
-- Google Ads Pixel [(documentation)]()
-- Google GA4 [(documentation)]()
-- Snapchat Pixel [(documentation)]()
-- TikTok Pixel & Event API [(documentation)]()
-- Twitter/X Pixel [(documentation)]()
+- Reddit Conversion API [(CAPI)](https://ads-api.reddit.com/docs/v2/#tag/Conversions)
+- Meta Conversion API [(CAPI)](https://developers.facebook.com/docs/marketing-api/conversions-api/)
+- [Google GA4](https://support.google.com/analytics/answer/9304153?hl=en)
+- Snapchat Pixel & Conversion API [(CAPI)](https://businesshelp.snapchat.com/s/article/integrating-marketing-api?language=en_US)
+- [TikTok Pixel](https://ads.tiktok.com/help/article/get-started-pixel?lang=en) & [Event API](https://ads.tiktok.com/help/article/events-api?redirected=2)
+- Twitter/X Pixel & Conversion API (CAPI)
+- Google Ads Pixel
+- Multiple pixel IDs by config.
 
 ## Setup
 
@@ -51,14 +53,45 @@ export default defineNuxtConfig({
   modules: ['nuxt-multi-analytics'],
 
   multiAnalytics: {
+    initialConsent: false,
     debug: false,
-    initialConsent: true,
+    autoPageView: true,
+    loadingStrategy: 'defer',
+    disabled: false,
     meta: {
-      pixelID: 'xxxxxxxxx',
+      pixelID: 'xxxxxxx',
+      track: 'PageView',
+      version: '2.0',
+      manualMode: false,
     },
   },
 });
 ```
+
+## Module Options
+
+Options that affects all pixels.
+
+| Option            | Type                 | Default   | Description                                                           |
+| ----------------- | -------------------- | --------- | --------------------------------------------------------------------- |
+| `debugt`          | `boolean`            | `false`   | Whether to show detailed info log of what each pixel is doing.        |
+| `autoPageView`    | `boolean`            | `true`    | Whether to track standard `track` value for all pixels.               |
+| `initialConsent`  | `boolean`            | `true`    | Whether to initially consent to tracking.                             |
+| `loadingStrategy` | `'async' \| 'defer'` | `'defer'` | The loading strategy to be used for the each individual pixel script. |
+
+Options for each individual pixel, all pixels have the same options.
+
+| Option    | Type     | Default             | Description                                  |
+| --------- | -------- | ------------------- | -------------------------------------------- |
+| `pixelID` | `string` | `null`              | The id of the pixel.                         |
+| `track`   | `string` | `[page view event]` | The event that will be standard for `track`. |
+| `version` | `string` | `[latest version]`  | Version to be used of pixel script.          |
+
+Special options for Facebook.
+
+| Option       | Type      | Default | Description                                                            |
+| ------------ | --------- | ------- | ---------------------------------------------------------------------- |
+| `manualMode` | `boolean` | `false` | If the pixel should automatically track events such as a button click. |
 
 ## Composables
 
@@ -74,12 +107,12 @@ const { haveConsent, grantConsent, revokeConsent } = useConsent();
 const { track, init, setUserData } = useMultiAnalytics();
 ```
 
-### `useMetaPixel`
+### `useMetaPixel`, `useRedditPixel`
 
 ```ts
 const {
   options,
-  setFbq,
+  setPixel,
   setPixelId,
   setUserData,
   enable,
