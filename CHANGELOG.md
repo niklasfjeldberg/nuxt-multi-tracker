@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.3
+
+[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.0.2...v0.0.3)
+
+### 🩹 Fixes
+
+- New dep ([e9682f1](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e9682f1))
+- Changed from old package name ([8585349](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/8585349))
+
+### ❤️ Contributors
+
+- Niklas Fjeldberg <github@fjeldberg.me>
+
 ## v0.0.2
 
 ### 🚀 Enhancements
