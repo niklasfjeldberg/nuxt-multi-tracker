@@ -25,7 +25,7 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 ## Table of Contents
 
 - [Install](#install)
-- [Setup & basic Usage](#)
+- [Setup & basic Usage](#setup--basic-usage)
 - [Module Options](#module-options)
 - [Composables](#composables)
 - [Development](#development)
@@ -56,21 +56,16 @@ npm install --save-dev nuxt-multi-tracker
 
 ## Setup & basic usage
 
+With the following configuration the pixels with IDs will track page views.
+
 ```js
 export default defineNuxtConfig({
   modules: ['nuxt-multi-tracker'],
 
   multiTracker: {
     initialConsent: false,
-    debug: false,
-    autoPageView: true,
-    loadingStrategy: 'defer',
-    disabled: false,
     meta: {
       pixelID: 'xxxxxxx',
-      track: 'PageView',
-      version: '2.0',
-      manualMode: false,
     },
   },
 });
@@ -86,14 +81,16 @@ Options that affects all pixels.
 | `autoPageView`    | `boolean`            | `true`    | Whether to track standard `track` value for all pixels.        |
 | `initialConsent`  | `boolean`            | `true`    | Whether to initially consent to tracking.                      |
 | `loadingStrategy` | `'async' \| 'defer'` | `'defer'` | The loading strategy to be used for all pixel scripts.         |
+| `disabled`        | `boolean`            | `false`   | If all pixels should be disabled at start.                     |
 
 Options for each individual pixel, all pixels have these options.
 
-| Option    | Type     | Default             | Description                                  |
-| --------- | -------- | ------------------- | -------------------------------------------- |
-| `pixelID` | `string` | `null`              | The id of the pixel.                         |
-| `track`   | `string` | `[page view event]` | The event that will be standard for `track`. |
-| `version` | `string` | `[latest version]`  | Version to be used of pixel script.          |
+| Option     | Type      | Default             | Description                                  |
+| ---------- | --------- | ------------------- | -------------------------------------------- |
+| `pixelID`  | `string`  | `null`              | The id of the pixel.                         |
+| `disabled` | `boolean` | `false`             | If the pixel should be disabled at start.    |
+| `track`    | `string`  | `[page view event]` | The event that will be standard for `track`. |
+| `version`  | `string`  | `[latest version]`  | Version to be used of pixel script.          |
 
 ### Meta (Facebook) options
 
