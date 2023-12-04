@@ -87,13 +87,13 @@ Options for each individual pixel, all pixels have the same options.
 | `track`   | `string` | `[page view event]` | The event that will be standard for `track`. |
 | `version` | `string` | `[latest version]`  | Version to be used of pixel script.          |
 
-Special options for Facebook.
+### Meta (Facebook) options
 
 | Option       | Type      | Default | Description                                                            |
 | ------------ | --------- | ------- | ---------------------------------------------------------------------- |
 | `manualMode` | `boolean` | `false` | If the pixel should automatically track events such as a button click. |
 
-Special options for Reddit.
+### Reddit options
 
 | Option                     | Type      | Default | Description                                  |
 | -------------------------- | --------- | ------- | -------------------------------------------- |
@@ -107,10 +107,10 @@ Special options for Reddit.
 const { haveConsent, grantConsent, revokeConsent } = useConsent();
 ```
 
-### `useMultiAnalytics`
+### `useMultiTracker`
 
 ```ts
-const { track, init, setUserData } = useMultiAnalytics();
+const { track, init, setUserData } = useMultiTracker();
 ```
 
 ### `useMetaPixel`, `useRedditPixel`
