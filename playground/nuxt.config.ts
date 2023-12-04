@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ['../src/module', '@nuxt/ui'],
+  modules: ['nuxt-multi-tracker', '@nuxt/ui'],
   ssr: true,
   multiTracker: {
     private: {},
