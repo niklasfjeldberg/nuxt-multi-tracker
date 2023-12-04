@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   modules: ['../src/module', '@nuxt/ui'],
   ssr: true,
-  multiAnalytics: {
+  multiTracker: {
     private: {},
     public: {
       debug: true,
