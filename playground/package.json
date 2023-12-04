@@ -11,6 +11,6 @@
     "nuxt": "latest",
     "nuxt-multi-tracker": "latest",
     "@nuxt/ui": "latest",
-    "defu": "^6.1.3"
+    "defu": "latest"
   }
 }
