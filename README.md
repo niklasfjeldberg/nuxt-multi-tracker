@@ -5,10 +5,10 @@
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-Pixel's and Conversion APIs for most popular social media nettworks.
+Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conversion APIs for most popular social media networks.
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-  <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-multi-tracker?file=playground%2Fapp.vue) -->
+- ✨ &nbsp;[Release Notes](/CHANGELOG.md)
+  - [🏀 Online playground](https://stackblitz.com/https://github.com/niklasfjeldberg/nuxt-multi-tracker/tree/master/playground)
   <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Features
@@ -19,21 +19,29 @@ Pixel's and Conversion APIs for most popular social media nettworks.
 - 🔶 Fully typed
 - 🔶 SSR-ready
 - 🔶 Supported pixels:
-  - 🔹Meta (Facebook) pixel
-  - 🔹Reddit Pixel
+  - Meta (Facebook) pixel
+  - Reddit Pixel
+
+## Table of Contents
+
+- [Install](#install)
+- [Setup & basic Usage](#)
+- [Module Options](#module-options)
+- [Composables](#composables)
+- [Development](#development)
 
 ## Planned features
 
 - Reddit Conversion API [(CAPI)](https://ads-api.reddit.com/docs/v2/#tag/Conversions)
 - Meta Conversion API [(CAPI)](https://developers.facebook.com/docs/marketing-api/conversions-api/)
-- [Google GA4](https://support.google.com/analytics/answer/9304153?hl=en)
-- Snapchat Pixel & Conversion API [(CAPI)](https://businesshelp.snapchat.com/s/article/integrating-marketing-api?language=en_US)
+- [Snapchat Pixel](https://businesshelp.snapchat.com/s/article/pixel-website-install?language=en_US) & Conversion API [(CAPI)](https://businesshelp.snapchat.com/s/article/integrating-marketing-api?language=en_US)
 - [TikTok Pixel](https://ads.tiktok.com/help/article/get-started-pixel?lang=en) & [Event API](https://ads.tiktok.com/help/article/events-api?redirected=2)
 - Twitter/X Pixel & Conversion API (CAPI)
+- [Google GA4](https://support.google.com/analytics/answer/9304153?hl=en)
 - Google Ads Pixel
 - Multiple pixel IDs by config.
 
-## Setup
+## Install
 
 ```bash
 # Using pnpm
@@ -46,7 +54,7 @@ yarn add --dev nuxt-multi-tracker
 npm install --save-dev nuxt-multi-tracker
 ```
 
-## Basic Usage
+## Setup & basic usage
 
 ```js
 export default defineNuxtConfig({
@@ -79,7 +87,7 @@ Options that affects all pixels.
 | `initialConsent`  | `boolean`            | `true`    | Whether to initially consent to tracking.                      |
 | `loadingStrategy` | `'async' \| 'defer'` | `'defer'` | The loading strategy to be used for all pixel scripts.         |
 
-Options for each individual pixel, all pixels have the same options.
+Options for each individual pixel, all pixels have these options.
 
 | Option    | Type     | Default             | Description                                  |
 | --------- | -------- | ------------------- | -------------------------------------------- |
@@ -89,9 +97,9 @@ Options for each individual pixel, all pixels have the same options.
 
 ### Meta (Facebook) options
 
-| Option       | Type      | Default | Description                                                            |
-| ------------ | --------- | ------- | ---------------------------------------------------------------------- |
-| `manualMode` | `boolean` | `false` | If the pixel should automatically track events such as a button click. |
+| Option       | Type      | Default | Description                                                              |
+| ------------ | --------- | ------- | ------------------------------------------------------------------------ |
+| `manualMode` | `boolean` | `false` | Manual mode will disable automatic event tracking such as button clicks. |
 
 ### Reddit options
 
