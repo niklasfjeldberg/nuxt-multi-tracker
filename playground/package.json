@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "nuxt-reddit-conversion-api-playground",
+  "name": "nuxt-multi-tracker-playground",
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",
@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "nuxt": "latest",
-    "nuxt-multi-tracker": "latest"
+    "nuxt-multi-tracker": "latest",
+    "@nuxt/ui": "latest",
+    "defu": "^6.1.3"
   }
 }
