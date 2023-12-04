@@ -13,14 +13,14 @@ Pixel's and Conversion APIs for most popular social media nettworks.
 
 ## Features
 
-- 🌻 No dependencies except each services pixel
-- 🤝 Manual consent management for GDPR compliance
-- 📯 Track events manually with composables
-- 🏷️ Fully typed
-- 🦾 SSR-ready
+- 🔶 Minimal dependencies
+- 🔶 Manual consent management for GDPR compliance
+- 🔶 Track events manually with composables
+- 🔶 Fully typed
+- 🔶 SSR-ready
 - 🔶 Supported pixels:
-  - Meta (Facebook) pixel
-  - Reddit Pixel
+  - 🔹Meta (Facebook) pixel
+  - 🔹Reddit Pixel
 
 ## Planned features
 
@@ -72,12 +72,12 @@ export default defineNuxtConfig({
 
 Options that affects all pixels.
 
-| Option            | Type                 | Default   | Description                                                           |
-| ----------------- | -------------------- | --------- | --------------------------------------------------------------------- |
-| `debugt`          | `boolean`            | `false`   | Whether to show detailed info log of what each pixel is doing.        |
-| `autoPageView`    | `boolean`            | `true`    | Whether to track standard `track` value for all pixels.               |
-| `initialConsent`  | `boolean`            | `true`    | Whether to initially consent to tracking.                             |
-| `loadingStrategy` | `'async' \| 'defer'` | `'defer'` | The loading strategy to be used for the each individual pixel script. |
+| Option            | Type                 | Default   | Description                                                    |
+| ----------------- | -------------------- | --------- | -------------------------------------------------------------- |
+| `debug`           | `boolean`            | `false`   | Whether to show detailed info log of what each pixel is doing. |
+| `autoPageView`    | `boolean`            | `true`    | Whether to track standard `track` value for all pixels.        |
+| `initialConsent`  | `boolean`            | `true`    | Whether to initially consent to tracking.                      |
+| `loadingStrategy` | `'async' \| 'defer'` | `'defer'` | The loading strategy to be used for all pixel scripts.         |
 
 Options for each individual pixel, all pixels have the same options.
 
@@ -92,6 +92,12 @@ Special options for Facebook.
 | Option       | Type      | Default | Description                                                            |
 | ------------ | --------- | ------- | ---------------------------------------------------------------------- |
 | `manualMode` | `boolean` | `false` | If the pixel should automatically track events such as a button click. |
+
+Special options for Reddit.
+
+| Option                     | Type      | Default | Description                                  |
+| -------------------------- | --------- | ------- | -------------------------------------------- |
+| `disableFirstPartyCookies` | `boolean` | `false` | If the pixel should use first party cookies. |
 
 ## Composables
 
