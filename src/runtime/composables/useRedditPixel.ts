@@ -136,6 +136,8 @@ export default function (input?: RedditModuleOptions) {
     if (pixelDisabled.value) return;
     if (!options.value.pixelLoaded) setPixel();
 
+    if (reddit.disableFirstPartyCookies) query('disableFirstPartyCookies');
+
     query('init', options.value.pixelID, {
       ...options.value.userData,
       optOut: false,
@@ -155,7 +157,7 @@ export default function (input?: RedditModuleOptions) {
   ) => {
     if (pixelDisabled.value) return;
 
-    if (!eventName) eventName = options.value.track;
+    if (!eventName) eventName = options.value.track!;
 
     const metaData = { ...params };
     if (eventID) metaData.conversionId = eventID;
@@ -174,7 +176,7 @@ export default function (input?: RedditModuleOptions) {
    * @param {string} [option]
    * @param {object} [params]
    */
-  const query: RedditQuery = (cmd, option, params) => {
+  const query: RedditQuery = (cmd, option = null, params = null) => {
     // Disable tracking if module is disabled or user consent is not given.
     if (pixelDisabled.value) return;
 

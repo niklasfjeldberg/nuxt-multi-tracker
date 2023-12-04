@@ -7,9 +7,9 @@ import type {
 
 export interface MetaModuleOptions {
   pixelID: string | null;
-  track: MetaEventNames;
-  version: MetaApiVersion;
-  manualMode: boolean;
+  track?: MetaEventNames;
+  version?: MetaApiVersion;
+  manualMode?: boolean;
   // Currently not supported
   /* pixels?: {
     pixelId: string;
@@ -19,8 +19,9 @@ export interface MetaModuleOptions {
 
 export interface RedditModuleOptions {
   pixelID: string | null;
-  track: RedditEventNames;
-  version: RedditApiVersion;
+  track?: RedditEventNames;
+  version?: RedditApiVersion;
+  disableFirstPartyCookies?: boolean;
 }
 
 export interface ModuleOptions {

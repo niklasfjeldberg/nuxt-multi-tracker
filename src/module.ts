@@ -44,6 +44,7 @@ export default defineNuxtModule<ModuleOptions>({
         pixelID: null,
         version: '2.0',
         track: 'PageVisit',
+        disableFirstPartyCookies: false,
       },
     },
   },

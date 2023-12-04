@@ -12,7 +12,7 @@ export type RedditEventNames =
   | 'SignUp'
   | 'Custom';
 
-export type RedditPixelCmd = 'init' | 'track';
+export type RedditPixelCmd = 'init' | 'track' | 'disableFirstPartyCookies';
 
 export type RedditApiVersion = '2.0';
 
@@ -51,8 +51,13 @@ export interface RedditParamsInit extends RedditUserData {
 }
 
 export interface RedditQuery {
-  (cmd: 'track', option: RedditEventNames, params?: RedditParamsInit): void;
-  (cmd: 'init', option: string | null, params?: RedditParamsInit): void;
+  (
+    cmd: 'track',
+    option: RedditEventNames,
+    params: RedditParamsInit | null,
+  ): void;
+  (cmd: 'init', option: string | null, params: RedditParamsInit | null): void;
+  (cmd: 'disableFirstPartyCookies', option?: null, params?: null): void;
 }
 
 // ---------------------
