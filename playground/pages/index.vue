@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-const { track, setUserData } = useMultiAnalytics();
+const { track, setUserData } = useMultiTracker();
 
 const { grantConsent, revokeConsent, haveConsent } = useConsent();
 

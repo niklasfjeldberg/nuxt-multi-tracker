@@ -6,5 +6,5 @@
 </template>
 
 <script setup>
-const { haveConsent } = useMultiAnalytics();
+const { haveConsent } = useMultiTracker();
 </script>
