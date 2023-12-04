@@ -7,8 +7,8 @@
 
 Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conversion APIs for most popular social media networks.
 
-- ✨ &nbsp;[Release Notes](/CHANGELOG.md)
-  - [🏀 Online playground](https://stackblitz.com/https://github.com/niklasfjeldberg/nuxt-multi-tracker/tree/master/playground)
+- ✨ [Release Notes](/CHANGELOG.md)
+- 🏀 [Online playground](https://stackblitz.com/https://github.com/niklasfjeldberg/nuxt-multi-tracker/tree/master/playground)
   <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Features
