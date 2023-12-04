@@ -15,7 +15,8 @@ import type {
 } from '../types';
 
 export default function (input?: MetaModuleOptions) {
-  const { meta, disabled, debug } = useRuntimeConfig().public.multiAnalytics;
+  const { meta, disabled, debug, loadingStrategy } =
+    useRuntimeConfig().public.multiAnalytics;
 
   const options = useState<MetaPixelOptions>('metaPixelOptions');
   const pixelType = 'Meta';
@@ -68,8 +69,7 @@ export default function (input?: MetaModuleOptions) {
           hid: 'metaPixel',
           src: 'https://connect.facebook.net/en_US/fbevents.js',
           onload: () => scriptLoaded(),
-          defer: true,
-          async: true,
+          defer: loadingStrategy === 'defer',
         },
       ],
     });

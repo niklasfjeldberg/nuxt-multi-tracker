@@ -14,7 +14,8 @@ import type {
 } from '~/src/runtime/types';
 
 export default function (input?: RedditModuleOptions) {
-  const { reddit, disabled, debug } = useRuntimeConfig().public.multiAnalytics;
+  const { reddit, disabled, debug, loadingStrategy } =
+    useRuntimeConfig().public.multiAnalytics;
 
   const pixelType = 'Reddit';
 
@@ -31,7 +32,7 @@ export default function (input?: RedditModuleOptions) {
     };
   }
 
-  if (!options.value.pixelID) useWarn('pixelID is not set.');
+  if (!options.value.pixelID) useWarn(`(${pixelType}) pixelID is not set.`);
 
   const { haveConsent } = useConsent();
 
@@ -65,8 +66,7 @@ export default function (input?: RedditModuleOptions) {
           hid: 'redditPixel',
           src: 'https://www.redditstatic.com/ads/pixel.js',
           onload: () => scriptLoaded(),
-          defer: true,
-          async: true,
+          defer: loadingStrategy === 'defer',
         },
       ],
     });
