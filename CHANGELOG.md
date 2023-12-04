@@ -1,5 +1,36 @@
 # Changelog
 
+## v0.2.0
+
+[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.1.0...v0.2.0)
+
+### 🚀 Enhancements
+
+- Added new reddit pixel option ([bc3450d](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/bc3450d))
+- Playground stackblitch example ([2cc2b3f](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/2cc2b3f))
+
+### 🩹 Fixes
+
+- Remove dependencie + add keywords ([769d8f0](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/769d8f0))
+- Change to new package name ([bca79ed](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/bca79ed))
+- ⚠️  Changed main composable name ([678b2b2](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/678b2b2))
+- Improve playground for stackblitzh ([fcff54f](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/fcff54f))
+
+### 📖 Documentation
+
+- Added documentation for new future ([bf85513](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/bf85513))
+- Improve docs ([aaaddb5](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/aaaddb5))
+- Improve docs ([dca1f3b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/dca1f3b))
+- Small fix ([2fb088d](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/2fb088d))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Changed main composable name ([678b2b2](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/678b2b2))
+
+### ❤️ Contributors
+
+- Niklas Fjeldberg <github@fjeldberg.me>
+
 ## v0.1.0
 
 [compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.0.3...v0.1.0)
