@@ -15,12 +15,17 @@
         {{ redditOptions }}
       </pre
         >
+        <pre>
+        {{ twitterOptions }}
+      </pre
+        >
       </code>
     </ClientOnly>
   </UContainer>
 </template>
 
 <script setup lang="ts">
-const metaOptions = useState('metaPixelOptions');
-const redditOptions = useState('redditPixelOptions');
+const metaOptions = useMetaPixel().options;
+const redditOptions = useRedditPixel().options;
+const twitterOptions = useTwitterPixel().options;
 </script>

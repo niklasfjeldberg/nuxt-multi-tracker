@@ -3,10 +3,16 @@ import type {
   MetaApiVersion,
   RedditApiVersion,
   RedditEventNames,
+  TwitterEventNames,
+  TwitterApiVersion,
 } from './index';
 
-export interface MetaModuleOptions {
+interface StandardPixelOptions {
   pixelID: string | null;
+  disabled?: boolean;
+}
+
+export interface MetaModuleOptions extends StandardPixelOptions {
   track?: MetaEventNames;
   version?: MetaApiVersion;
   manualMode?: boolean;
@@ -17,11 +23,15 @@ export interface MetaModuleOptions {
   }[]; */
 }
 
-export interface RedditModuleOptions {
-  pixelID: string | null;
+export interface RedditModuleOptions extends StandardPixelOptions {
   track?: RedditEventNames;
   version?: RedditApiVersion;
   disableFirstPartyCookies?: boolean;
+}
+
+export interface TwitterModuleOptions extends StandardPixelOptions {
+  track?: TwitterEventNames;
+  version?: TwitterApiVersion;
 }
 
 export interface ModuleOptions {
@@ -41,9 +51,9 @@ export interface ModuleOptions {
     disabled?: boolean;
     reddit?: RedditModuleOptions;
     meta?: MetaModuleOptions;
+    twitter?: TwitterModuleOptions;
     linkedin?: {};
     snapchat?: {};
-    twitter?: {};
     tiktok?: {};
   };
 }

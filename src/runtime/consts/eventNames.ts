@@ -1,4 +1,8 @@
-import type { MetaEventNames, RedditEventNames } from '../types';
+import type {
+  MetaEventNames,
+  RedditEventNames,
+  TwitterEventNames,
+} from '../types';
 
 export const metaStandardEvents: MetaEventNames[] = [
   'PageView',
@@ -19,6 +23,23 @@ export const metaStandardEvents: MetaEventNames[] = [
   'SubmitApplication',
   'Subscribe',
   'ViewContent',
+];
+
+export const twitterStandardEvents: TwitterEventNames[] = [
+  'Page View',
+  'Purchase',
+  'Download',
+  'Custom',
+  'Lead',
+  'Add to Cart',
+  'Checkout Initiated',
+  'Content View',
+  'Added Payment Info',
+  'Search',
+  'Subscribe',
+  'Start Trial',
+  'Add to Wishlist',
+  'Product Customization',
 ];
 
 export const redditStandardEvents: RedditEventNames[] = [

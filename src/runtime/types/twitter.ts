@@ -1,10 +1,36 @@
-import type { CurrencyCodes } from './index';
+import type { CurrencyCodes, TwitterModuleOptions } from './index';
 
-export type TwitterPixelMode = 'event' | 'config';
+export type TwitterPixelCmd = 'event' | 'config';
 
 /* Contents, Conversion ID, Email address, Value, Currency */
 
-export type TwitterEventParameters = {
+// Options for useRedditPixel
+export interface TwitterPixelOptions extends TwitterModuleOptions {
+  pixelLoaded: boolean;
+  isEnabled: boolean;
+  userData: any | null;
+  eventsQueue: any[];
+}
+
+export type TwitterEventNames =
+  | 'Page View'
+  | 'Purchase'
+  | 'Download'
+  | 'Custom'
+  | 'Lead'
+  | 'Add to Cart'
+  | 'Checkout Initiated'
+  | 'Content View'
+  | 'Added Payment Info'
+  | 'Search'
+  | 'Subscribe'
+  | 'Start Trial'
+  | 'Add to Wishlist'
+  | 'Product Customization';
+
+export type TwitterApiVersion = '1.1';
+
+export type TwitterParams = {
   email_address?: string;
   phone_number?: string;
   value?: number;
@@ -23,3 +49,8 @@ export type TwitterEventParameters = {
     num_items?: number;
   }[];
 };
+
+export interface TwitterQuery {
+  (cmd: 'event', option: string | null, params?: TwitterParams | null): void;
+  (cmd: 'config', option: string | null, params?: null): void;
+}

@@ -36,25 +36,33 @@ export default defineNuxtModule<ModuleOptions>({
       disabled: false,
       meta: {
         pixelID: null,
+        disabled: false,
         track: 'PageView',
         version: '2.0',
         manualMode: false,
       },
       reddit: {
         pixelID: null,
+        disabled: false,
         version: '2.0',
         track: 'PageVisit',
         disableFirstPartyCookies: false,
       },
+      twitter: {
+        pixelID: null,
+        disabled: false,
+        version: '1.1',
+        track: 'Page View',
+      },
     },
   },
   setup(options, nuxt) {
-    nuxt.options.runtimeConfig.multiAnalytics = defu(
-      nuxt.options.runtimeConfig.multiAnalytics,
+    nuxt.options.runtimeConfig[configKey] = defu(
+      nuxt.options.runtimeConfig[configKey],
       options.private,
     );
-    nuxt.options.runtimeConfig.public.multiAnalytics = defu(
-      nuxt.options.runtimeConfig.public.multiAnalytics,
+    nuxt.options.runtimeConfig.public[configKey] = defu(
+      nuxt.options.runtimeConfig.public[configKey],
       options.public,
     );
 
@@ -66,7 +74,7 @@ export default defineNuxtModule<ModuleOptions>({
     /* addImportsDir(resolve('./runtime/types')); */
 
     addPlugin({
-      src: resolve('runtime/plugins/multiAnalytics.client'),
+      src: resolve('./runtime/plugins/multiTracker.client'),
       mode: 'client',
     });
   },
