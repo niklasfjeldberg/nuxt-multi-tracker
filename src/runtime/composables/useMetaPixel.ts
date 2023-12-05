@@ -1,8 +1,7 @@
 import { computed, useRuntimeConfig, useState, useHead, toRaw } from '#imports';
 import { defu } from 'defu';
-import { useInfo, useLogError, useWarn } from './useLog';
+import { useInfo, useLogError } from './useLog';
 import useConsent from './useConsent';
-/* import { useUserData } from './states'; */
 import { metaStandardEvents } from '../consts/eventNames';
 
 import type {
@@ -16,7 +15,7 @@ import type {
 
 export default function (input?: MetaModuleOptions) {
   const { meta, disabled, debug, loadingStrategy } =
-    useRuntimeConfig().public.multiAnalytics;
+    useRuntimeConfig().public.multiTracker;
 
   const options = useState<MetaPixelOptions>('metaPixelOptions');
   const pixelType = 'Meta';
@@ -31,8 +30,6 @@ export default function (input?: MetaModuleOptions) {
       eventsQueue: [],
     };
   }
-
-  if (!options.value.pixelID) useWarn(`(${pixelType}) pixelID is not set.`);
 
   const { haveConsent } = useConsent();
 

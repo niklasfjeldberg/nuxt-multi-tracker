@@ -15,7 +15,7 @@ import type {
 
 export default function (input?: RedditModuleOptions) {
   const { reddit, disabled, debug, loadingStrategy } =
-    useRuntimeConfig().public.multiAnalytics;
+    useRuntimeConfig().public.multiTracker;
 
   const pixelType = 'Reddit';
 
@@ -31,8 +31,6 @@ export default function (input?: RedditModuleOptions) {
       eventsQueue: [],
     };
   }
-
-  if (!options.value.pixelID) useWarn(`(${pixelType}) pixelID is not set.`);
 
   const { haveConsent } = useConsent();
 
