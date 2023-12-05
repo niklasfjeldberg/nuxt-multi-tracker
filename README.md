@@ -20,7 +20,8 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 - 🔶 SSR-ready
 - 🔶 Supported pixels:
   - Meta (Facebook) pixel
-  - Reddit Pixel
+  - Reddit pixel
+  - Twitter pixel (basic support)
 
 ## Table of Contents
 
@@ -36,7 +37,7 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 - Meta Conversion API [(CAPI)](https://developers.facebook.com/docs/marketing-api/conversions-api/)
 - [Snapchat Pixel](https://businesshelp.snapchat.com/s/article/pixel-website-install?language=en_US) & Conversion API [(CAPI)](https://businesshelp.snapchat.com/s/article/integrating-marketing-api?language=en_US)
 - [TikTok Pixel](https://ads.tiktok.com/help/article/get-started-pixel?lang=en) & [Event API](https://ads.tiktok.com/help/article/events-api?redirected=2)
-- Twitter/X Pixel & Conversion API (CAPI)
+- Twitter/X Conversion API (CAPI)
 - [Google GA4](https://support.google.com/analytics/answer/9304153?hl=en)
 - Google Ads Pixel
 - Multiple pixel IDs by config.
@@ -65,6 +66,9 @@ export default defineNuxtConfig({
   multiTracker: {
     initialConsent: false,
     meta: {
+      pixelID: 'xxxxxxx',
+    },
+    reddit: {
       pixelID: 'xxxxxxx',
     },
   },
@@ -118,7 +122,7 @@ const { haveConsent, grantConsent, revokeConsent } = useConsent();
 const { track, init, setUserData } = useMultiTracker();
 ```
 
-### `useMetaPixel`, `useRedditPixel`
+### `useMetaPixel`, `useRedditPixel`, `useTwitterPixel`
 
 ```ts
 const {
