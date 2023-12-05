@@ -9,9 +9,15 @@ export default defineNuxtConfig({
       initialConsent: false,
       meta: {
         pixelID: process.env.META_PIXEL_ID || null,
+        disabled: false,
       },
       reddit: {
         pixelID: process.env.REDDIT_PIXEL_ID || null,
+        disabled: false,
+      },
+      twitter: {
+        pixelID: process.env.TWITTER_PIXEL_ID || null,
+        disabled: false,
       },
     },
   },
