@@ -1,6 +1,6 @@
 import { computed, useHead, useRuntimeConfig, useState, toRaw } from '#imports';
 import { defu } from 'defu';
-import { useInfo, useWarn, useLogError } from './useLog';
+import { useInfo, useLogError } from './useLog';
 import useConsent from './useConsent';
 import { redditStandardEvents } from '../consts/eventNames';
 

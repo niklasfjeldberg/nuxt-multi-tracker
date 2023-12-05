@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-const metaPixel = useMetaPixel();
+const multiTrack = useMultiTracker();
 const onClick = () => {
-  metaPixel.track('SubmitApplication', null, String(new Date().getTime()));
+  multiTrack.track('SubmitApplication', null, String(new Date().getTime()));
 };
 </script>

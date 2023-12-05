@@ -6,9 +6,9 @@ export default defineNuxtPlugin(() => {
   const { autoPageView } = useRuntimeConfig().public.multiTracker;
 
   const { init, track } = useMultiTracker();
-  const router = useRouter();
   init();
 
+  const router = useRouter();
   if (router) {
     router.afterEach(() => {
       /**

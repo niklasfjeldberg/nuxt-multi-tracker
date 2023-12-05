@@ -1,9 +1,9 @@
 import { useGroup, useGroupEnd, useLogError } from './useLog';
 
 // Pixels
-import useMetaPixel from './useMetaPixel';
-import useRedditPixel from './useRedditPixel';
-import useTwitterPixel from './useTwitterPixel';
+import usePixelMeta from './usePixelMeta';
+import usePixelReddit from './usePixelReddit';
+import usePixelTwitter from './usePixelTwitter';
 
 // Other
 import useConsent from './useConsent';
@@ -22,9 +22,9 @@ export default function () {
   const { haveConsent } = useConsent();
 
   // Const all pixels
-  const metaPixel = useMetaPixel();
-  const redditPixel = useRedditPixel();
-  /* const twitterPixel = useTwitterPixel(); */
+  const metaPixel = usePixelMeta();
+  const redditPixel = usePixelReddit();
+  /* const twitterPixel = usePixelTwitter(); */
 
   /**
    * @method init

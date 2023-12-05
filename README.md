@@ -122,7 +122,7 @@ const { haveConsent, grantConsent, revokeConsent } = useConsent();
 const { track, init, setUserData } = useMultiTracker();
 ```
 
-### `useMetaPixel`, `useRedditPixel`, `useTwitterPixel`
+### `usePixelMeta`, `usePixelReddit`, `usePixelTwitter`, `usePixelGoogle`
 
 ```ts
 const {
@@ -135,7 +135,7 @@ const {
   track,
   query,
   init,
-} = useMetaPixel();
+} = usePixel...();
 ```
 
 ## 💻 Development

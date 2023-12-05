@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-const metaOptions = useMetaPixel().options;
-const redditOptions = useRedditPixel().options;
-const twitterOptions = useTwitterPixel().options;
+const metaOptions = usePixelMeta().options;
+const redditOptions = usePixelReddit().options;
+const twitterOptions = usePixelTwitter().options;
 </script>
