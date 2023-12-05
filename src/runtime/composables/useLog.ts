@@ -10,16 +10,16 @@ const moduleName = 'nuxt-multi-tracker';
  */
 
 export const useInfo = (...messages: any) => {
-  const { debug } = useRuntimeConfig().public.multiAnalytics;
+  const { debug } = useRuntimeConfig().public.multiTracker;
   if (debug) console.info.apply(console, [`[${moduleName}]`, ...messages]);
   /* console.info.apply(['[nuxt-multi-tracker]', ...messages]); */
 };
 export const useGroup = (...messages: any) => {
-  const { debug } = useRuntimeConfig().public.multiAnalytics;
+  const { debug } = useRuntimeConfig().public.multiTracker;
   if (debug) console.group(`[${moduleName}]`, ...messages);
 };
 export const useGroupEnd = () => {
-  const { debug } = useRuntimeConfig().public.multiAnalytics;
+  const { debug } = useRuntimeConfig().public.multiTracker;
   if (debug) console.groupEnd();
 };
 

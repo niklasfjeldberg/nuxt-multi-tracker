@@ -3,7 +3,7 @@ import MyModule from '../../../src/module';
 export default defineNuxtConfig({
   modules: [MyModule],
   ssr: true,
-  multiAnalytics: {
+  multiTracker: {
     private: {},
     public: {
       debug: true,

@@ -3,7 +3,7 @@ import { useInfo } from './useLog';
 /* import type { MetaEventNames} from '../types'; */
 
 export default function () {
-  const { initialConsent } = useRuntimeConfig().public.multiAnalytics; // disabled
+  const { initialConsent } = useRuntimeConfig().public.multiTracker; // disabled
 
   const haveConsent = useState<boolean>('haveConsent');
   const cookieHaveConsent = useCookie<boolean>('haveConsent');
