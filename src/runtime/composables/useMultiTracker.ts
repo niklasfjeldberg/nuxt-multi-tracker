@@ -3,6 +3,7 @@ import { useGroup, useGroupEnd, useLogError } from './useLog';
 // Pixels
 import useMetaPixel from './useMetaPixel';
 import useRedditPixel from './useRedditPixel';
+import useTwitterPixel from './useTwitterPixel';
 
 // Other
 import useConsent from './useConsent';
@@ -23,6 +24,7 @@ export default function () {
   // Const all pixels
   const metaPixel = useMetaPixel();
   const redditPixel = useRedditPixel();
+  /* const twitterPixel = useTwitterPixel(); */
 
   /**
    * @method init
@@ -33,6 +35,7 @@ export default function () {
     useGroup('init all pixels');
     metaPixel.init();
     redditPixel.init();
+    /* twitterPixel.init(); */
     useGroupEnd();
   };
 
@@ -42,15 +45,17 @@ export default function () {
    */
   const track = (
     eventName: MetaEventNames | null = null,
-    parameters: MetaParameters | null = null,
+    params: MetaParameters | null = null,
     eventID: string | null = null,
   ) => {
     if (!haveConsent.value) return;
     useGroup('track with all pixels');
-    metaPixel.track(eventName, parameters, eventID);
+    metaPixel.track(eventName, params, eventID);
+    // TODO: fix metaToTwitter event names.
+    /* twitterPixel.track(eventName, params, eventID); */
     redditPixel.track(
       eventName ? metaToRedditEventNames[eventName] : eventName,
-      parameters,
+      params,
       eventID,
     );
     useGroupEnd();
