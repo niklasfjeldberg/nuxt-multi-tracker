@@ -3,7 +3,7 @@ import useMultiTracker from '../composables/useMultiTracker';
 import { defineNuxtPlugin, useRuntimeConfig, useRouter } from '#imports';
 
 export default defineNuxtPlugin(() => {
-  const { autoPageView } = useRuntimeConfig().public.multiAnalytics;
+  const { autoPageView } = useRuntimeConfig().public.multiTracker;
 
   const { init, track } = useMultiTracker();
   const router = useRouter();
