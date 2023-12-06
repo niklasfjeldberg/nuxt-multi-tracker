@@ -13,15 +13,16 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 
 ## Features
 
-- 🔶 Minimal dependencies
-- 🔶 Manual consent management for GDPR compliance
-- 🔶 Track events manually with composables
-- 🔶 Fully typed
-- 🔶 SSR-ready
-- 🔶 Supported pixels:
+- Minimal dependencies
+- Manual consent management for GDPR compliance
+- Track events manually with composables
+- Fully typed
+- SSR-ready
+- Supported pixels:
   - Meta (Facebook) pixel
   - Reddit pixel
   - Twitter pixel (basic support)
+  - Google tag (basic support, just `gtag` directly)
 
 ## Table of Contents
 
@@ -87,14 +88,14 @@ Options that affects all pixels.
 | `loadingStrategy` | `'async' \| 'defer'` | `'defer'` | The loading strategy to be used for all pixel scripts.         |
 | `disabled`        | `boolean`            | `false`   | If all pixels should be disabled at start.                     |
 
-Options for each individual pixel, all pixels have these options.
+Options for each individual pixel, most pixels have all of these options.
 
-| Option     | Type      | Default             | Description                                  |
-| ---------- | --------- | ------------------- | -------------------------------------------- |
-| `pixelID`  | `string`  | `null`              | The id of the pixel.                         |
-| `disabled` | `boolean` | `false`             | If the pixel should be disabled at start.    |
-| `track`    | `string`  | `[page view event]` | The event that will be standard for `track`. |
-| `version`  | `string`  | `[latest version]`  | Version to be used of pixel script.          |
+| Option     | Type      | Default       | Description                                  |
+| ---------- | --------- | ------------- | -------------------------------------------- |
+| `pixelID`  | `string`  | `null`        | The id of the pixel.                         |
+| `disabled` | `boolean` | `false`       | If the pixel should be disabled at start.    |
+| `track`    | `string`  | `[page view]` | The event that will be standard for `track`. |
+| `version`  | `string`  | `[latest]`    | Version to be used of pixel script.          |
 
 ### Meta (Facebook) options
 
@@ -129,7 +130,7 @@ const {
   options,
   setPixel,
   setPixelId,
-  setUserData, // Not available for use usePixelGoogle
+  setUserData,
   enable,
   disable,
   track,
@@ -138,12 +139,17 @@ const {
 } = usePixel...();
 ```
 
-How to use `track()`
+How to use `track()`.
 
 ```
-track() // Uses default event name, the standard option is a page view
+// Uses default event name, the standard option is a page view
+track()
 
-track('Lead') // Spesify wich event you want to trigger
+// Spesify wich event you want to trigger
+track('Lead')
+
+// Custom event names will automatically be recognised and sent correctly
+track('CustomEventName1')
 
 track('Lead', {
   eventID: 'xxxxxxxxx' // Set eventID to duplicate events
@@ -153,7 +159,7 @@ track('Lead', {
 
 ```
 
-How to use `init()` and related functions
+How to use `init()` and related functions.
 
 ```
 // Uses the default pixel ID
@@ -168,6 +174,17 @@ setUserData({
   ...
 })
 
+```
+
+How to use `query()`. This is a wrapper for the respective functions (`fbq`, `rdt`, `gtag`, etc.), and you can always use the functions directly if you prefer that.
+
+```
+query('track', {
+  eventName: 'Lead',
+  eventID: 'xxxxxx'
+  .....
+  // All parameters goes in this object
+})
 ```
 
 ## 💻 Development
