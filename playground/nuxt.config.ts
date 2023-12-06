@@ -19,6 +19,10 @@ export default defineNuxtConfig({
         pixelID: process.env.TWITTER_PIXEL_ID || null,
         disabled: false,
       },
+      google: {
+        pixelID: process.env.GOOGLE_PIXEL_ID || null,
+        disabled: false,
+      },
     },
   },
   devtools: { enabled: true },

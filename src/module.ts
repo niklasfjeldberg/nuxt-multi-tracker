@@ -54,6 +54,11 @@ export default defineNuxtModule<ModuleOptions>({
         version: '1.1',
         track: 'Page View',
       },
+      google: {
+        pixelID: null,
+        disabled: false,
+        track: 'page_view',
+      },
     },
   },
   setup(options, nuxt) {

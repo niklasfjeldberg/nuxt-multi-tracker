@@ -7,16 +7,24 @@
     <p class="w-full">This button will trigger an event</p>
     <ClientOnly>
       <code class="w-full">
+        <h2>Meta</h2>
         <pre>
-        {{ metaOptions }}
-      </pre
+          {{ metaOptions }}
+          </pre
         >
+        <h2>Reddit</h2>
         <pre>
-        {{ redditOptions }}
-      </pre
+            {{ redditOptions }}
+            </pre
         >
+        <h2>Twitter</h2>
         <pre>
         {{ twitterOptions }}
+      </pre
+        >
+        <h2>GA4</h2>
+        <pre>
+        {{ googleOptions }}
       </pre
         >
       </code>
@@ -28,4 +36,5 @@
 const metaOptions = usePixelMeta().options;
 const redditOptions = usePixelReddit().options;
 const twitterOptions = usePixelTwitter().options;
+const googleOptions = usePixelGoogle().options;
 </script>

@@ -5,6 +5,7 @@ import type {
   RedditEventNames,
   TwitterEventNames,
   TwitterApiVersion,
+  GoogleEventNames,
 } from './index';
 
 interface StandardPixelOptions {
@@ -27,6 +28,11 @@ export interface RedditModuleOptions extends StandardPixelOptions {
   track?: RedditEventNames;
   version?: RedditApiVersion;
   disableFirstPartyCookies?: boolean;
+}
+
+export interface GoogleModuleOptions extends StandardPixelOptions {
+  track?: GoogleEventNames;
+  /* version?: RedditApiVersion; */
 }
 
 export interface TwitterModuleOptions extends StandardPixelOptions {
@@ -52,6 +58,7 @@ export interface ModuleOptions {
     reddit?: RedditModuleOptions;
     meta?: MetaModuleOptions;
     twitter?: TwitterModuleOptions;
+    google?: GoogleModuleOptions;
     linkedin?: {};
     snapchat?: {};
     tiktok?: {};

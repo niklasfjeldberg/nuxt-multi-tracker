@@ -25,7 +25,7 @@ const { track, setUserData } = useMultiTracker();
 const { grantConsent, revokeConsent, haveConsent } = useConsent();
 
 const onClick2 = () => {
-  track('Lead', null, String(new Date().getTime()));
+  track('Lead', { eventID: String(new Date().getTime()) });
 };
 
 const onClick = () => {
@@ -34,6 +34,6 @@ const onClick = () => {
     ln: 'Johnson',
     em: 'example@example.com',
   });
-  track('Lead', null, String(new Date().getTime()));
+  track('Lead', { eventID: String(new Date().getTime()) });
 };
 </script>
