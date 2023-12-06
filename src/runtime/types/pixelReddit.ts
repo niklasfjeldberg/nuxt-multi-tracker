@@ -21,7 +21,7 @@ export interface RedditPixelOptions extends RedditModuleOptions {
   pixelLoaded: boolean;
   isEnabled: boolean;
   userData: RedditUserData | null;
-  eventsQueue: any[];
+  eventsQueue: RedditQueryParamsOptions[];
 }
 
 // Reddit Pixel Event Metadata
@@ -45,19 +45,29 @@ export interface RedditUserData {
   aaid?: string;
 }
 
-export interface RedditParamsInit extends RedditUserData {
+export interface RedditEventParamsOptions extends RedditUserData {
+  properties?: RedditParams | null;
+  eventID?: string | null;
+  customEventName?: string;
+  conversionId?: string;
+}
+export interface RedditQueryParamsOptions extends RedditEventParamsOptions {
+  pixelID?: string;
+  optOut?: boolean;
+  useDecimalCurrencyValues?: boolean;
+}
+
+export interface RedditParamsInit {
+  userData?: RedditUserData | null;
+  pixelID?: string;
   optOut?: boolean;
   useDecimalCurrencyValues?: boolean;
 }
 
 export interface RedditQuery {
-  (
-    cmd: 'track',
-    option: RedditEventNames,
-    params: RedditParamsInit | null,
-  ): void;
-  (cmd: 'init', option: string | null, params: RedditParamsInit | null): void;
-  (cmd: 'disableFirstPartyCookies', option?: null, params?: null): void;
+  (cmd: 'track', params: RedditEventParamsOptions): void;
+  (cmd: 'init', params: RedditParamsInit): void;
+  (cmd: 'disableFirstPartyCookies', params?: null): void;
 }
 
 // ---------------------

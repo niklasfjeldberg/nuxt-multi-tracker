@@ -28,7 +28,7 @@ export type MetaEventNames =
 
 export type MetaApiVersion = '2.0';
 
-export interface MetaEventID {
+interface MetaEventID {
   eventID?: string | null;
 }
 
@@ -40,37 +40,40 @@ export type MetaPixelCmd =
   | 'trackSingle'
   | 'trackSingleCustom';
 
-// https://developers.facebook.com/docs/meta-pixel/advanced/#automatic-configuration
-// There are more options than "autoConfig"!
-
 export interface MetaQuery {
   (
     cmd: 'set',
-    option: 'autoConfig',
-    params: boolean,
-    eventID: string | null,
+    params: {
+      option: 'autoConfig'; // //developers.facebook.com/docs/meta-pixel/advanced/#automatic-configuration
+      autoMode: boolean;
+      pixelID: string;
+    },
   ): void;
   (
     cmd: 'init',
-    option: string | null,
-    params: MetaUserData | null,
-    eventID?: null,
+    params: {
+      pixelID: string;
+      userData?: MetaUserData | null;
+    },
   ): void;
   (
     cmd: 'track' | 'trackCustom',
-    option: MetaEventNames,
-    params: MetaParameters | null,
-    eventID: string | null,
+    params: {
+      eventName: MetaEventNames;
+      properties?: MetaParameters;
+      eventID?: string;
+    },
+  ): void;
+  (
+    cmd: 'trackSingle' | 'trackSingleCustom', // https://developers.facebook.com/ads/blog/post/v2/2017/11/28/event-tracking-with-multiple-pixels-tracksingle/
+    params: {
+      pixelID: string;
+      eventName: MetaEventNames;
+      properties?: MetaParameters;
+      eventID?: string;
+    },
   ): void;
 }
-
-/* export interface MetaPixelCmdTrackSingle {
-  cmd: 'trackSingle' | 'trackSingleCustom';
-  pixelID: string;
-  eventName: MetaEventNames;
-  parameters?: MetaParameters;
-  eventID?: MetaEventID;
-} */
 
 // https://developers.facebook.com/docs/meta-pixel/advanced/advanced-matching#reference
 export interface MetaUserData {
@@ -104,19 +107,27 @@ export interface MetaParameters {
   test_event_code?: string;
 }
 
-interface MetaEventAny {
+export interface MetaTrackParamsOptions {
+  properties?: any;
+  pixelID?: string;
+  eventID?: string;
+}
+/* export interface MetaQueryParamsOptions extends MetaTrackParamsOptions {
+} */
+
+export interface MetaEventParamsOptions extends MetaTrackParamsOptions {
   cmd: MetaPixelCmd;
-  option: string | null;
-  params: any;
-  eventID: string | null; // MetaEventID
+  option?: string;
+  autoMode?: boolean;
+  userData?: MetaUserData | null;
+  eventName?: MetaEventNames;
 }
 
 export interface MetaPixelOptions extends MetaModuleOptions {
-  /* fbq: any; */
   pixelLoaded: boolean;
   isEnabled: boolean;
   userData: MetaUserData | null;
-  eventsQueue: MetaEventAny[];
+  eventsQueue: MetaEventParamsOptions[];
 }
 
 /* declare namespace MetaPixel {

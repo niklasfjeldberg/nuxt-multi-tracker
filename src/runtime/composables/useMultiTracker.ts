@@ -4,18 +4,20 @@ import { useGroup, useGroupEnd, useLogError } from './useLog';
 import usePixelMeta from './usePixelMeta';
 import usePixelReddit from './usePixelReddit';
 import usePixelTwitter from './usePixelTwitter';
+import usePixelGoogle from './usePixelGoogle';
 
 // Other
 import useConsent from './useConsent';
 import type {
   MetaEventNames,
   MetaUserData,
-  MetaParameters,
+  MetaTrackParamsOptions,
   RedditUserData,
 } from '../types';
 import {
   metaToRedditEventNames,
   metaToRedditUserData,
+  metaToGoogleEventNames,
 } from '../consts/eventNames';
 
 export default function () {
@@ -24,6 +26,7 @@ export default function () {
   // Const all pixels
   const metaPixel = usePixelMeta();
   const redditPixel = usePixelReddit();
+  const googlePixel = usePixelGoogle();
   /* const twitterPixel = usePixelTwitter(); */
 
   /**
@@ -35,6 +38,7 @@ export default function () {
     useGroup('init all pixels');
     metaPixel.init();
     redditPixel.init();
+    googlePixel.init();
     /* twitterPixel.init(); */
     useGroupEnd();
   };
@@ -44,20 +48,27 @@ export default function () {
    * Track event for all active pixels. Uses Meta (Facebook) event names as default.
    */
   const track = (
-    eventName: MetaEventNames | null = null,
-    params: MetaParameters | null = null,
-    eventID: string | null = null,
+    eventName?: MetaEventNames,
+    params?: MetaTrackParamsOptions, //  eventID?: string,
   ) => {
     if (!haveConsent.value) return;
     useGroup('track with all pixels');
-    metaPixel.track(eventName, params, eventID);
-    // TODO: fix metaToTwitter event names.
-    /* twitterPixel.track(eventName, params, eventID); */
+
+    metaPixel.track(eventName, params);
+
+    googlePixel.track(
+      eventName ? metaToGoogleEventNames[eventName] : eventName,
+      params,
+    );
+
     redditPixel.track(
       eventName ? metaToRedditEventNames[eventName] : eventName,
       params,
-      eventID,
     );
+
+    // TODO: fix metaToTwitter event names.
+    /* twitterPixel.track(eventName, params, eventID); */
+
     useGroupEnd();
   };
 

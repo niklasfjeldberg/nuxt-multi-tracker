@@ -7,7 +7,7 @@ import { metaStandardEvents } from '../consts/eventNames';
 import type {
   MetaUserData,
   MetaEventNames,
-  MetaParameters,
+  MetaTrackParamsOptions,
   MetaQuery,
   MetaModuleOptions,
   MetaPixelOptions,
@@ -107,9 +107,7 @@ export default function (input?: MetaModuleOptions) {
       JSON.stringify(options.value.userData) !== JSON.stringify(newUserData)
     ) {
       options.value.userData = newUserData;
-      if (initPixel) {
-        init();
-      }
+      if (initPixel) init();
     }
   };
 
@@ -135,9 +133,17 @@ export default function (input?: MetaModuleOptions) {
   const init = () => {
     if (pixelDisabled.value) return;
     if (!options.value.pixelLoaded) setFbq();
-    if (options.value.manualMode)
-      query('set', 'autoConfig', false, options.value.pixelID);
-    query('init', options.value.pixelID, options.value.userData);
+    if (options.value.manualMode) {
+      query('set', {
+        option: 'autoConfig',
+        autoMode: false,
+        pixelID: options.value.pixelID!,
+      });
+    }
+    query('init', {
+      pixelID: options.value.pixelID!,
+      userData: options.value.userData,
+    });
   };
 
   /**
@@ -146,53 +152,31 @@ export default function (input?: MetaModuleOptions) {
    * @param {object} [parameters] See https://developers.facebook.com/docs/meta-pixel/implementation/conversion-tracking#object-properites
    */
   const track = (
-    eventName: MetaEventNames | null = null,
-    parameters: MetaParameters | null = null,
-    eventID: string | null = null,
+    eventName?: MetaEventNames,
+    params?: MetaTrackParamsOptions,
   ) => {
     if (pixelDisabled.value) return;
 
-    if (!eventName) eventName = options.value.track;
-
-    if (metaStandardEvents.includes(eventName!)) {
-      query('track', eventName, parameters, eventID);
-    } else {
-      query('trackCustom', eventName, parameters, eventID);
-    }
+    query(metaStandardEvents.includes(eventName!) ? 'track' : 'trackCustom', {
+      eventName: eventName || options.value.track!,
+      ...params,
+    });
   };
 
   /**
    * @method query
    * @param {string} [cmd] command
-   * @param {any} [option]
-   * @param {any} [params]
-   * @param {any} [eventID]
+   * @param {object} [params]
    */
-  const query: MetaQuery = (
-    cmd,
-    option = null,
-    params = null,
-    eventID = null,
-  ) => {
+  const query: MetaQuery = (cmd, params) => {
     // Disable tracking if module is disabled or user consent is not given.
     if (pixelDisabled.value) return;
 
-    useInfo(
-      `(${pixelType}) Cmd:`,
-      cmd,
-      'Option:',
-      option,
-      'Params:',
-      params,
-      'EventID:',
-      eventID,
-    );
+    useInfo(`(${pixelType}) Cmd:`, cmd, 'Params:', params);
 
     options.value.eventsQueue.push({
       cmd,
-      option,
-      params,
-      eventID,
+      ...params,
     });
 
     send();
@@ -207,14 +191,26 @@ export default function (input?: MetaModuleOptions) {
       if (debug) useInfo(`(${pixelType}) Send event:`, toRaw(event));
 
       if (event) {
-        if (event.eventID) {
-          window.fbq(event.cmd, event.option, event.params, {
+        if (['track', 'trackCustom'].includes(event.cmd)) {
+          window.fbq(event.cmd, event.eventName, event.properties, {
             eventID: { eventID: event.eventID },
           });
-        } else if (event.params) {
-          window.fbq(event.cmd, event.option, event.params);
+        } else if (event.cmd === 'init') {
+          window.fbq(event.cmd, event.pixelID, event.userData);
+        } else if (event.cmd === 'set') {
+          window.fbq(event.cmd, event.option, event.autoMode, event.pixelID);
+        } else if (['trackSingle', 'trackSingleCustom'].includes(event.cmd)) {
+          window.fbq(
+            event.cmd,
+            event.pixelID,
+            event.eventName,
+            event.properties,
+            {
+              eventID: { eventID: event.eventID },
+            },
+          );
         } else {
-          window.fbq(event.cmd, event.option);
+          useLogError(`(${pixelType}) command not account for:`, event.cmd);
         }
       }
     }

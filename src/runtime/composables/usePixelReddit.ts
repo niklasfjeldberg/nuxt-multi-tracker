@@ -9,7 +9,7 @@ import type {
   RedditModuleOptions,
   RedditPixelOptions,
   RedditUserData,
-  RedditParams,
+  RedditEventParamsOptions,
   RedditQuery,
 } from '~/src/runtime/types';
 
@@ -93,7 +93,7 @@ export default function (input?: RedditModuleOptions) {
    * @method setUserData
    * Used to set user data that'll be used once the `fbq` init function is called.
    * @param {object} [newUserData] See https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Advanced-Matching
-   * @param {object} [initPixel] Automatically init pixel with new data.
+   * @param {boolean} [initPixel] Automatically init pixel with new data.
    */
   const setUserData = (
     newUserData?: RedditUserData,
@@ -136,8 +136,9 @@ export default function (input?: RedditModuleOptions) {
 
     if (reddit.disableFirstPartyCookies) query('disableFirstPartyCookies');
 
-    query('init', options.value.pixelID, {
-      ...options.value.userData,
+    query('init', {
+      pixelID: options.value.pixelID!,
+      userData: options.value.userData,
       optOut: false,
       useDecimalCurrencyValues: true,
     });
@@ -149,41 +150,39 @@ export default function (input?: RedditModuleOptions) {
    * @param {object} [params] See https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Event-Metadata
    */
   const track = (
-    eventName: RedditEventNames | null = null,
-    params: RedditParams | null = null,
-    eventID: string | null = null,
+    eventName?: RedditEventNames,
+    params?: RedditEventParamsOptions,
   ) => {
     if (pixelDisabled.value) return;
 
     if (!eventName) eventName = options.value.track!;
 
-    const metaData = { ...params };
-    if (eventID) metaData.conversionId = eventID;
+    const metaData = {
+      eventName: redditStandardEvents.includes(eventName)
+        ? eventName
+        : 'Custom',
+      ...params,
+    };
+    if (metaData.eventName === 'Custom') metaData.customEventName = eventName;
+    if (params?.eventID) metaData.conversionId = params.eventID;
 
-    if (redditStandardEvents.includes(eventName)) {
-      query('track', eventName, { ...metaData });
-    } else {
-      metaData.customEventName = eventName;
-      query('track', 'Custom', { ...metaData });
-    }
+    query('track', metaData);
   };
 
   /**
    * @method query
    * @param {string} [cmd] command
-   * @param {string} [option]
    * @param {object} [params]
    */
-  const query: RedditQuery = (cmd, option = null, params = null) => {
+  const query: RedditQuery = (cmd, params) => {
     // Disable tracking if module is disabled or user consent is not given.
     if (pixelDisabled.value) return;
 
-    useInfo(`(${pixelType}) Cmd:`, cmd, 'Option:', option, 'Params:', params);
+    useInfo(`(${pixelType}) Cmd:`, cmd, 'Params:', params);
 
     options.value.eventsQueue.push({
       cmd,
-      option,
-      params,
+      ...params,
     });
 
     send();
@@ -193,18 +192,31 @@ export default function (input?: RedditModuleOptions) {
     if (!options.value.pixelLoaded) return;
 
     while (options.value.eventsQueue.length) {
-      const event = options.value.eventsQueue.shift();
+      const event = toRaw(options.value.eventsQueue.shift());
 
-      if (debug) useInfo(`(${pixelType}) Send event: `, toRaw(event));
+      if (debug) useInfo(`(${pixelType}) Send event: `, event);
 
       if (event) {
         /*
          * WARNING: Error "#<Object> could not be cloned" will happen if you do not clone proxy consts.
          */
-        if (event.params) {
-          window.rdt(event.cmd, event.option, toRaw(event.params));
+        if (event.cmd === 'track') {
+          window.rdt('track', event.eventName, {
+            ...event.properties,
+            eventID: event.eventID,
+            customEventName: event.customEventName,
+            conversionId: event.conversionId,
+          });
+        } else if (event.cmd === 'init') {
+          window.rdt('init', event.pixelID, {
+            ...event.userData,
+            optOut: event.optOut,
+            useDecimalCurrencyValues: event.useDecimalCurrencyValues,
+          });
+        } else if (event.cmd === 'disableFirstPartyCookies') {
+          window.rdt('disableFirstPartyCookies');
         } else {
-          window.rdt(event.cmd, event.option);
+          useLogError(`(${pixelType}) cmd is not accounted for:`, event.cmd);
         }
       }
     }
