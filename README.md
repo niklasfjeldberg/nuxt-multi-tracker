@@ -129,13 +129,45 @@ const {
   options,
   setPixel,
   setPixelId,
-  setUserData,
+  setUserData, // Not available for use usePixelGoogle
   enable,
   disable,
   track,
   query,
   init,
 } = usePixel...();
+```
+
+How to use `track()`
+
+```
+track() // Uses default event name, the standard option is a page view
+
+track('Lead') // Spesify wich event you want to trigger
+
+track('Lead', {
+  eventID: 'xxxxxxxxx' // Set eventID to duplicate events
+  ...
+  // All parameters are set in this object
+})
+
+```
+
+How to use `init()` and related functions
+
+```
+// Uses the default pixel ID
+init()
+
+// Will change the ID of the pixel in `options` and run `init()`
+setPixelID('xxxx')
+
+// Will set userdata in `options` and run `init()`. Se the type for all possible parameters.
+setUserData({
+  em: 'example@example.com',
+  ...
+})
+
 ```
 
 ## 💻 Development
