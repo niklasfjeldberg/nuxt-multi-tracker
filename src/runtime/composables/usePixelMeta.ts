@@ -157,8 +157,10 @@ export default function (input?: MetaModuleOptions) {
   ) => {
     if (pixelDisabled.value) return;
 
-    query(metaStandardEvents.includes(eventName!) ? 'track' : 'trackCustom', {
-      eventName: eventName || options.value.track!,
+    if (!eventName) eventName = options.value.track!;
+
+    query(metaStandardEvents.includes(eventName) ? 'track' : 'trackCustom', {
+      eventName: eventName,
       ...params,
     });
   };
@@ -196,9 +198,9 @@ export default function (input?: MetaModuleOptions) {
             eventID: { eventID: event.eventID },
           });
         } else if (event.cmd === 'init') {
-          window.fbq(event.cmd, event.pixelID, event.userData);
+          window.fbq('init', event.pixelID, event.userData);
         } else if (event.cmd === 'set') {
-          window.fbq(event.cmd, event.option, event.autoMode, event.pixelID);
+          window.fbq('set', event.option, event.autoMode, event.pixelID);
         } else if (['trackSingle', 'trackSingleCustom'].includes(event.cmd)) {
           window.fbq(
             event.cmd,
