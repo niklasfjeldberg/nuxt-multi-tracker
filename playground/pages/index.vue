@@ -16,11 +16,15 @@
     <UButton @click="haveConsent ? revokeConsent() : grantConsent()"
       >Toggle consent</UButton
     >
+    <h2 class="text-4xl w-full">Other functions</h2>
+    <UButton @click="userData">Set user data</UButton>
+    <UButton @click="init">Init all pixels</UButton>
+    <UButton @click="track()">Track default</UButton>
   </UContainer>
 </template>
 
 <script setup lang="ts">
-const { track, setUserData } = useMultiTracker();
+const { track, setUserData, init } = useMultiTracker();
 
 const { grantConsent, revokeConsent, haveConsent } = useConsent();
 
@@ -28,12 +32,16 @@ const onClick2 = () => {
   track('Lead', { eventID: String(new Date().getTime()) });
 };
 
-const onClick = () => {
+const userData = () => {
   setUserData({
     fn: 'John',
     ln: 'Johnson',
     em: 'example@example.com',
   });
+};
+
+const onClick = () => {
+  userData();
   track('Lead', { eventID: String(new Date().getTime()) });
 };
 </script>
