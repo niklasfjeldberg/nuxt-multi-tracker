@@ -180,6 +180,8 @@ export default function (input?: GoogleModuleOptions) {
         window.dataLayer.push(...args);
       }
 
+      // https://developers.google.com/tag-platform/gtagjs/reference#event
+
       if (event.cmd === 'event') {
         gtag('event', event.eventName, {});
       } else if (event.cmd === 'config') {
