@@ -1,5 +1,63 @@
 # Changelog
 
+## v0.3.0
+
+[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.2.0...v0.3.0)
+
+### 🚀 Enhancements
+
+- Added basic twitter pixel support ([06a7962](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/06a7962))
+- Added GA4 alpha ([f0465e6](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/f0465e6))
+- ⚠️  New track & query input + renaming files ([804183b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/804183b))
+- More playground options ([a4e339e](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a4e339e))
+
+### 🩹 Fixes
+
+- Respect loading strategy option for scripts ([7e4adb4](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/7e4adb4))
+- Playground package version ([b3a3c8b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/b3a3c8b))
+- Wrong config key + configkey now dynamic ([d7dfb60](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/d7dfb60))
+- Changed filename to match package name ([bc64e9f](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/bc64e9f))
+- Disable twitter in multi track, is not ready ([a2d5c4a](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a2d5c4a))
+- Changed to new package name some places ([4269972](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/4269972))
+- Changed to new name + removed pixelID warning ([e1c0d74](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e1c0d74))
+- ⚠️  Standardized naming of pixel composables ([80a3231](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/80a3231))
+- Change to new track way ([85a90ea](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/85a90ea))
+- MultiTrack eventName not passing correctly ([81c16cc](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/81c16cc))
+- Disable google pixel, as it's not ready ([48d9e67](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/48d9e67))
+- Default eventname value ([58795a6](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/58795a6))
+
+### 📖 Documentation
+
+- Added new option ([203a40e](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/203a40e))
+- Twitter documentation ([2d0c4f1](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/2d0c4f1))
+- Added more details ([e8bc394](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e8bc394))
+- Improve docs ([004fffc](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/004fffc))
+- Made it clear google/ twitter is alpha ([29e9f30](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/29e9f30))
+- Added warning to docs ([7638c89](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/7638c89))
+- Improve docs ([10ce0c8](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/10ce0c8))
+- Recommend debugg extension ([7f33f1b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/7f33f1b))
+- Added keywords ([8a580fd](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/8a580fd))
+- Added referance link ([aa61dc2](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/aa61dc2))
+
+### 🏡 Chore
+
+- **release:** V0.2.0 ([a5fb563](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a5fb563))
+- Update dep ([f69e593](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/f69e593))
+
+### ✅ Tests
+
+- Failed attempt to write composable test ([8c8d6c7](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/8c8d6c7))
+- Enabled auto track in test ([e785fdb](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e785fdb))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  New track & query input + renaming files ([804183b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/804183b))
+- ⚠️  Standardized naming of pixel composables ([80a3231](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/80a3231))
+
+### ❤️ Contributors
+
+- Niklas Fjeldberg <github@fjeldberg.me>
+
 ## v0.2.0
 
 [compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.1.0...v0.2.0)
