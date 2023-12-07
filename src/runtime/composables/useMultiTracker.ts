@@ -57,12 +57,12 @@ export default function () {
     metaPixel.track(eventName, params);
 
     googlePixel.track(
-      eventName ? metaToGoogleEventNames[eventName] : eventName,
+      eventName ? metaToGoogleEventNames[eventName] || eventName : eventName,
       params,
     );
 
     redditPixel.track(
-      eventName ? metaToRedditEventNames[eventName] : eventName,
+      eventName ? metaToRedditEventNames[eventName] || eventName : eventName,
       params,
     );
 
