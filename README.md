@@ -25,7 +25,7 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
   - Meta (Facebook) pixel
   - Reddit pixel
   - Twitter pixel (alpha: basic support)
-  - Google Analytics 4 ([GA4](https://support.google.com/analytics/answer/9304153?hl=en)) (alpha: basic support, just `gtag` directly)
+  - Google Analytics 4 ([GA4](https://support.google.com/analytics/answer/9304153?hl=en)) (alpha: basic support, just `datalayer` directly)
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 - [Setup & basic Usage](#setup--basic-usage)
 - [Module Options](#module-options)
 - [Composables](#composables)
-- [Development](#development)
+- [Development](#-development)
 
 ## Planned features
 
@@ -120,10 +120,18 @@ Options for each individual pixel, most pixels have all of these options.
 ### `useConsent`
 
 ```ts
-const { haveConsent, grantConsent, revokeConsent } = useConsent();
+const {
+  // Output is a boolean
+  haveConsent,
+  // No input or output
+  grantConsent,
+  revokeConsent,
+} = useConsent();
 ```
 
 ### `useMultiTracker`
+
+This composable uses the Meta pixel as default, meaning you should use Meta event names and user data. This composable works the same way as all others.
 
 ```ts
 const { track, init, setUserData } = useMultiTracker();
