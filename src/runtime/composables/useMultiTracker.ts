@@ -26,7 +26,7 @@ export default function () {
   // Const all pixels
   const metaPixel = usePixelMeta();
   const redditPixel = usePixelReddit();
-  const googlePixel = usePixelGoogle();
+  /* const googlePixel = usePixelGoogle(); */
   /* const twitterPixel = usePixelTwitter(); */
 
   /**
@@ -38,7 +38,7 @@ export default function () {
     useGroup('init all pixels');
     metaPixel.init();
     redditPixel.init();
-    googlePixel.init();
+    /* googlePixel.init(); */
     /* twitterPixel.init(); */
     useGroupEnd();
   };
@@ -56,10 +56,10 @@ export default function () {
 
     metaPixel.track(eventName, params);
 
-    googlePixel.track(
+    /* googlePixel.track(
       eventName ? metaToGoogleEventNames[eventName] || eventName : eventName,
       params,
-    );
+    ); */
 
     redditPixel.track(
       eventName ? metaToRedditEventNames[eventName] || eventName : eventName,
