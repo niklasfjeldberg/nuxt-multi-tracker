@@ -12,6 +12,8 @@
 <script setup lang="ts">
 const multiTrack = useMultiTracker();
 const onClick = () => {
-  multiTrack.track('SubmitApplication', null, String(new Date().getTime()));
+  multiTrack.track('SubmitApplication', {
+    eventID: String(new Date().getTime()),
+  });
 };
 </script>
