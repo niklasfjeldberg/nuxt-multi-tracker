@@ -21,8 +21,8 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 - Supported pixels:
   - Meta (Facebook) pixel
   - Reddit pixel
-  - Twitter pixel (basic support)
-  - Google tag (basic support, just `gtag` directly)
+  - Twitter pixel (alpha: basic support)
+  - Google Analytics 4 ([GA4](https://support.google.com/analytics/answer/9304153?hl=en)) (alpha: basic support, just `gtag` directly)
 
 ## Table of Contents
 
@@ -39,9 +39,7 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 - [Snapchat Pixel](https://businesshelp.snapchat.com/s/article/pixel-website-install?language=en_US) & Conversion API [(CAPI)](https://businesshelp.snapchat.com/s/article/integrating-marketing-api?language=en_US)
 - [TikTok Pixel](https://ads.tiktok.com/help/article/get-started-pixel?lang=en) & [Event API](https://ads.tiktok.com/help/article/events-api?redirected=2)
 - Twitter/X Conversion API (CAPI)
-- [Google GA4](https://support.google.com/analytics/answer/9304153?hl=en)
-- Google Ads Pixel
-- Multiple pixel IDs by config.
+- Multiple pixel IDs with config.
 
 ## Install
 
@@ -70,6 +68,7 @@ export default defineNuxtConfig({
       pixelID: 'xxxxxxx',
     },
     reddit: {
+      disable: true,
       pixelID: 'xxxxxxx',
     },
   },
@@ -78,7 +77,9 @@ export default defineNuxtConfig({
 
 ## Module Options
 
-Options that affects all pixels.
+### Options for all pixels
+
+These options will affect all pixels, but an option on the individual pixel will override these options if they are in conflict.
 
 | Option            | Type                 | Default   | Description                                                    |
 | ----------------- | -------------------- | --------- | -------------------------------------------------------------- |
@@ -87,6 +88,8 @@ Options that affects all pixels.
 | `initialConsent`  | `boolean`            | `true`    | Whether to initially consent to tracking.                      |
 | `loadingStrategy` | `'async' \| 'defer'` | `'defer'` | The loading strategy to be used for all pixel scripts.         |
 | `disabled`        | `boolean`            | `false`   | If all pixels should be disabled at start.                     |
+
+### Options for each pixels
 
 Options for each individual pixel, most pixels have all of these options.
 
