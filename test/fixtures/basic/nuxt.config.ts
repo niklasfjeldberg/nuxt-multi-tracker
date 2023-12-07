@@ -6,9 +6,9 @@ export default defineNuxtConfig({
   multiTracker: {
     private: {},
     public: {
-      debug: true,
+      debug: false,
       disabled: false,
-      initialConsent: false,
+      initialConsent: true,
       meta: {
         pixelID: 'xxxxxxxxx',
       },
