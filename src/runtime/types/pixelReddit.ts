@@ -51,7 +51,9 @@ export interface RedditEventParamsOptions extends RedditUserData {
   customEventName?: string;
   conversionId?: string;
 }
+
 export interface RedditQueryParamsOptions extends RedditEventParamsOptions {
+  eventName?: string;
   pixelID?: string;
   optOut?: boolean;
   useDecimalCurrencyValues?: boolean;
@@ -65,7 +67,7 @@ export interface RedditParamsInit {
 }
 
 export interface RedditQuery {
-  (cmd: 'track', params: RedditEventParamsOptions): void;
+  (cmd: 'track', params: RedditQueryParamsOptions): void;
   (cmd: 'init', params: RedditParamsInit): void;
   (cmd: 'disableFirstPartyCookies', params?: null): void;
 }

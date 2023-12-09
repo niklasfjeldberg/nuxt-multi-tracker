@@ -28,10 +28,6 @@ export type MetaEventNames =
 
 export type MetaApiVersion = '2.0';
 
-interface MetaEventID {
-  eventID?: string | null;
-}
-
 export type MetaPixelCmd =
   | 'init'
   | 'set'
@@ -59,7 +55,7 @@ export interface MetaQuery {
   (
     cmd: 'track' | 'trackCustom',
     params: {
-      eventName: MetaEventNames;
+      eventName: string;
       properties?: MetaParameters;
       eventID?: string;
     },
@@ -68,8 +64,8 @@ export interface MetaQuery {
     cmd: 'trackSingle' | 'trackSingleCustom', // https://developers.facebook.com/ads/blog/post/v2/2017/11/28/event-tracking-with-multiple-pixels-tracksingle/
     params: {
       pixelID: string;
-      eventName: MetaEventNames;
-      properties?: MetaParameters;
+      eventName: MetaEventNames | string;
+      properties?: string;
       eventID?: string;
     },
   ): void;
@@ -108,26 +104,24 @@ export interface MetaParameters {
 }
 
 export interface MetaTrackParamsOptions {
-  properties?: any;
+  properties?: MetaParameters;
   pixelID?: string;
   eventID?: string;
 }
-/* export interface MetaQueryParamsOptions extends MetaTrackParamsOptions {
-} */
 
-export interface MetaEventParamsOptions extends MetaTrackParamsOptions {
+export interface MetaQueryParamsOptions extends MetaTrackParamsOptions {
   cmd: MetaPixelCmd;
   option?: string;
   autoMode?: boolean;
   userData?: MetaUserData | null;
-  eventName?: MetaEventNames;
+  eventName?: string;
 }
 
 export interface MetaPixelOptions extends MetaModuleOptions {
   pixelLoaded: boolean;
   isEnabled: boolean;
   userData: MetaUserData | null;
-  eventsQueue: MetaEventParamsOptions[];
+  eventsQueue: MetaQueryParamsOptions[];
 }
 
 /* declare namespace MetaPixel {
