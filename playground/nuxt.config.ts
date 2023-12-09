@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     public: {
       debug: true,
       disabled: false,
-      initialConsent: false,
+      initialConsent: true,
       meta: {
         pixelID: process.env.META_PIXEL_ID || null,
         disabled: false,

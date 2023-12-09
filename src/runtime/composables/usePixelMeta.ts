@@ -151,18 +151,21 @@ export default function (input?: MetaModuleOptions) {
    * @param {string} [eventName] See https://developers.facebook.com/docs/meta-pixel/reference
    * @param {object} [parameters] See https://developers.facebook.com/docs/meta-pixel/implementation/conversion-tracking#object-properites
    */
-  const track = (
-    eventName?: MetaEventNames,
+  const track = <T = void>(
+    eventName?: MetaEventNames | T,
     params?: MetaTrackParamsOptions,
   ) => {
     if (pixelDisabled.value) return;
 
     if (!eventName) eventName = options.value.track!;
 
-    query(metaStandardEvents.includes(eventName) ? 'track' : 'trackCustom', {
-      eventName: eventName,
-      ...params,
-    });
+    query(
+      (metaStandardEvents as any).includes(eventName) ? 'track' : 'trackCustom',
+      {
+        eventName: eventName as string,
+        ...params,
+      },
+    );
   };
 
   /**

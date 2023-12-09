@@ -10,6 +10,7 @@ import type {
   RedditPixelOptions,
   RedditUserData,
   RedditEventParamsOptions,
+  RedditQueryParamsOptions,
   RedditQuery,
 } from '~/src/runtime/types';
 
@@ -149,21 +150,23 @@ export default function (input?: RedditModuleOptions) {
    * @param {string} [eventName] See same for event names.
    * @param {object} [params] See https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Event-Metadata
    */
-  const track = (
-    eventName?: RedditEventNames,
+  const track = <T = void>(
+    eventName?: RedditEventNames | T,
     params?: RedditEventParamsOptions,
   ) => {
     if (pixelDisabled.value) return;
 
     if (!eventName) eventName = options.value.track!;
 
-    const metaData = {
-      eventName: redditStandardEvents.includes(eventName)
-        ? eventName
+    const metaData: RedditQueryParamsOptions = {
+      eventName: (redditStandardEvents as any).includes(eventName) // Error when checking two different types
+        ? (eventName as string)
         : 'Custom',
       ...params,
     };
-    if (metaData.eventName === 'Custom') metaData.customEventName = eventName;
+    if (metaData.eventName === 'Custom') {
+      metaData.customEventName = eventName as string;
+    }
     if (params?.eventID) metaData.conversionId = params.eventID;
 
     query('track', metaData);
@@ -175,7 +178,6 @@ export default function (input?: RedditModuleOptions) {
    * @param {object} [params]
    */
   const query: RedditQuery = (cmd, params) => {
-    // Disable tracking if module is disabled or user consent is not given.
     if (pixelDisabled.value) return;
 
     useInfo(`(${pixelType}) Cmd:`, cmd, 'Params:', params);

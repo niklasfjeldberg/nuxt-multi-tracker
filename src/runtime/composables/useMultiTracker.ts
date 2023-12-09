@@ -47,8 +47,8 @@ export default function () {
    * @method track
    * Track event for all active pixels. Uses Meta (Facebook) event names as default.
    */
-  const track = (
-    eventName?: MetaEventNames,
+  const track = <T = void>(
+    eventName?: MetaEventNames | T,
     params?: MetaTrackParamsOptions, //  eventID?: string,
   ) => {
     if (!haveConsent.value) return;
@@ -56,15 +56,17 @@ export default function () {
 
     metaPixel.track(eventName, params);
 
+    redditPixel.track(
+      eventName
+        ? metaToRedditEventNames[eventName as MetaEventNames] || eventName
+        : eventName,
+      params,
+    );
+
     /* googlePixel.track(
       eventName ? metaToGoogleEventNames[eventName] || eventName : eventName,
       params,
     ); */
-
-    redditPixel.track(
-      eventName ? metaToRedditEventNames[eventName] || eventName : eventName,
-      params,
-    );
 
     // TODO: fix metaToTwitter event names.
     /* twitterPixel.track(eventName, params, eventID); */

@@ -20,6 +20,9 @@
     <UButton @click="userData">Set user data</UButton>
     <UButton @click="init">Init all pixels</UButton>
     <UButton @click="track()">Track default</UButton>
+    <UButton @click="track<MyCustomEvents>('MyNewEvent')"
+      >Track custom event ('MyNewEvent')</UButton
+    >
   </UContainer>
 </template>
 
@@ -27,6 +30,8 @@
 const { track, setUserData, init } = useMultiTracker();
 
 const { grantConsent, revokeConsent, haveConsent } = useConsent();
+
+type MyCustomEvents = 'MyNewEvent' | 'MyNewEvent2' | 'MyNewEvent3';
 
 const onClick2 = () => {
   track('Lead', { eventID: String(new Date().getTime()) });
