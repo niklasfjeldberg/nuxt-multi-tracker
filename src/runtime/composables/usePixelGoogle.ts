@@ -50,7 +50,7 @@ export default function (input?: GoogleModuleOptions) {
     useHead({
       script: [
         {
-          hid: 'googlePixel',
+          hid: 'pixelGoogle',
           src: `https://www.googletagmanager.com/gtag/js?id=${options.value.pixelID}`,
           onload: () => scriptLoaded(),
           defer: loadingStrategy === 'defer',
