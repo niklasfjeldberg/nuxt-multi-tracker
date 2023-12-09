@@ -35,15 +35,6 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 - [Composables](#composables)
 - [Development](#-development)
 
-## Planned features
-
-- Reddit Conversion API [(CAPI)](https://ads-api.reddit.com/docs/v2/#tag/Conversions)
-- Meta Conversion API [(CAPI)](https://developers.facebook.com/docs/marketing-api/conversions-api/)
-- [Snapchat Pixel](https://businesshelp.snapchat.com/s/article/pixel-website-install?language=en_US) & Conversion API [(CAPI)](https://businesshelp.snapchat.com/s/article/integrating-marketing-api?language=en_US)
-- [TikTok Pixel](https://ads.tiktok.com/help/article/get-started-pixel?lang=en) & [Event API](https://ads.tiktok.com/help/article/events-api?redirected=2)
-- Twitter/X Conversion API (CAPI)
-- Multiple pixel IDs with config.
-
 ## Install
 
 ```bash
