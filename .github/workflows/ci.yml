@@ -39,9 +39,5 @@ jobs:
 
       - name: 🟩 Coverage
         uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          directory: ./coverage/reports/
-          env_vars: OS,PYTHON
-          files: /home/runner/work/nuxt-multi-tracker/nuxt-multi-tracker/coverage.xml
-          flags: tests
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
