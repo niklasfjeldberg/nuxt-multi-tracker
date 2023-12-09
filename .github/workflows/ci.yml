@@ -32,7 +32,7 @@ jobs:
         run: npm run dev:prepare
 
       - name: 🛠 Build project
-        run: npm run build
+        run: npm run dev:build
 
       - name: 🧪 Test project
         run: npm run test
