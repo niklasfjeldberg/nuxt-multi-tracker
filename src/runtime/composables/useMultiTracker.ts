@@ -13,6 +13,7 @@ import type {
   MetaUserData,
   MetaTrackParamsOptions,
   RedditUserData,
+  GoogleEventNames,
 } from '../types';
 import {
   metaToRedditEventNames,
@@ -26,7 +27,7 @@ export default function () {
   // Const all pixels
   const metaPixel = usePixelMeta();
   const redditPixel = usePixelReddit();
-  /* const googlePixel = usePixelGoogle(); */
+  const googlePixel = usePixelGoogle();
   /* const twitterPixel = usePixelTwitter(); */
 
   /**
@@ -38,7 +39,7 @@ export default function () {
     useGroup('init all pixels');
     metaPixel.init();
     redditPixel.init();
-    /* googlePixel.init(); */
+    googlePixel.init();
     /* twitterPixel.init(); */
     useGroupEnd();
   };
@@ -63,10 +64,12 @@ export default function () {
       params,
     );
 
-    /* googlePixel.track(
-      eventName ? metaToGoogleEventNames[eventName] || eventName : eventName,
+    googlePixel.track(
+      eventName
+        ? metaToGoogleEventNames[eventName as GoogleEventNames] || eventName
+        : eventName,
       params,
-    ); */
+    );
 
     // TODO: fix metaToTwitter event names.
     /* twitterPixel.track(eventName, params, eventID); */

@@ -1,6 +1,13 @@
+import type { S } from 'vitest/dist/types-198fd1d9';
 import type { GoogleModuleOptions, CurrencyCodes } from './index';
 
-export type GooglePixelCmd = 'config';
+export type GooglePixelCmd =
+  | 'config'
+  | 'set'
+  | 'js'
+  | 'event'
+  | 'get'
+  | 'consent';
 
 export type GoogleApiVersion = string;
 
@@ -9,7 +16,19 @@ export interface GooglePixelOptions extends GoogleModuleOptions {
   pixelLoaded: boolean;
   isEnabled: boolean;
   userData: any;
-  eventsQueue: any[];
+  eventsQueue: GoogleQueryParamOptions[];
+}
+
+export interface GoogleQueryParamOptions {
+  cmd?: GooglePixelCmd;
+  targetId?: string;
+  config?: GoogleConfigParams;
+  eventParams?: GoogleEventParams;
+  eventName?: string;
+  consentArg?: GoogleConsentArg;
+  consentParams?: GoogleConsentParams;
+  callback?: any;
+  fieldName?: any;
 }
 
 export interface GoogleQuery {
@@ -46,7 +65,7 @@ export interface GoogleQuery {
   (
     cmd: 'event',
     params: {
-      eventName: GoogleEventParams | (string & Record<never, never>);
+      eventName: string;
       eventParams?:
         | GoogleControlParams
         | GoogleEventParams
@@ -64,8 +83,8 @@ export interface GoogleQuery {
   (
     cmd: 'consent',
     params: {
-      consentArg: ConsentArg | string;
-      consentParams: ConsentParams;
+      consentArg: GoogleConsentArg | string;
+      consentParams: GoogleConsentParams;
     },
   ): void;
 }
@@ -192,14 +211,14 @@ interface Promotion {
 
 type FieldNames = 'client_id' | 'session_id' | 'gclid';
 
-type ConsentArg = 'default' | 'update';
+type GoogleConsentArg = 'default' | 'update';
 
 /**
  * Reference:
  * @see {@link https://support.google.com/tagmanager/answer/10718549#consent-types consent-types}
  * @see {@link https://developers.google.com/tag-platform/devguides/consent consent}
  */
-interface ConsentParams {
+interface GoogleConsentParams {
   ad_storage?: 'granted' | 'denied';
   analytics_storage?: 'granted' | 'denied';
   functionality_storage?: 'granted' | 'denied';
