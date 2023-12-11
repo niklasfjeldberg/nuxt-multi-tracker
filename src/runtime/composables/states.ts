@@ -1,13 +1,13 @@
-import { useState } from '#imports';
+/* import { useState } from '#imports';
 
 import type {
   SharedUserData,
-  /* MetaPixelOptions,
+  MetaPixelOptions,
   RedditPixelOptions,
-  TwitterPixelOptions, */
-} from '../types';
+  TwitterPixelOptions,
+} from '../types'; */
 
-export const useUserData = useState<SharedUserData>('sharedUserData');
+/* export const useUserData = useState<SharedUserData>('sharedUserData'); */
 
 /* export const useMetaOptions = useState<MetaPixelOptions>('metaOptions');
 export const useRedditOptions = useState<RedditPixelOptions>('redditOptions');
