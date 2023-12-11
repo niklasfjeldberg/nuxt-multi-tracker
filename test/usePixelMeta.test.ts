@@ -2,11 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { setup } from '@nuxt/test-utils';
 /* import usePixelMeta from '../src/runtime/composables/usePixelMeta'; */
-/* import usePixelMeta from 'my-module'; */
 
 describe('usePixelMeta', async () => {
   await setup({
     rootDir: fileURLToPath(new URL('./fixtures/basic', import.meta.url)),
+    /* server: true, */
   });
 
   it('Event queue works', async () => {

@@ -24,7 +24,7 @@ const MD5_REGEX = /^[a-f0-9]{32}$/;
 export default function (input: string, field: string) {
   if (field == null || input == null) return null;
 
-  let normalized_input: string = input.trim().toLowerCase();
+  let normalized_input: string | null = input.trim().toLowerCase();
 
   if (normalized_input.length === 0) return null;
 
@@ -79,7 +79,9 @@ export default function (input: string, field: string) {
   }
 
   // Hashing the normalized input with SHA 256
-  const hashed_input = toSHA256(normalized_input);
+  const hashed_input = normalized_input
+    ? toSHA256(normalized_input)
+    : normalized_input;
   return hashed_input;
 }
 
@@ -176,7 +178,7 @@ const normalizeEmail = (email: string): string => {
  * @param  {String} [gender] gender value to be normalized.
  * @return {String} Normalized gender value.
  */
-const normalizeGender = (gender: string): string => {
+const normalizeGender = (gender: string): string | null => {
   gender = gender.replace(/[^a-z]/g, '');
 
   if (gender === 'female' || gender === 'f') {
@@ -185,6 +187,7 @@ const normalizeGender = (gender: string): string => {
     gender = 'm';
   } else {
     return null;
+    /* throw new Error(`Invalid gender format:'${gender}'`); */
   }
 
   return gender;
