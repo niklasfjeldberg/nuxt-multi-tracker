@@ -25,7 +25,9 @@
     "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "test:types": "tsc --noEmit",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@nuxt/kit": "^3.8.2",
