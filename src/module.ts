@@ -75,6 +75,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addImportsDir(resolve('./runtime/composables'));
+    addImportsDir(resolve('./runtime/server/utils'));
     /* addImportsDir(resolve('./config')); */
     /* addImportsDir(resolve('./runtime/types')); */
 

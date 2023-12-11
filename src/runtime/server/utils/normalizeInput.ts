@@ -139,6 +139,8 @@ const normalizeCurrency = (currency: string): string => {
 /* const normalizeDeliveryCategory = (input: string) => {
   let delivery_category = input.trim().toLowerCase();
 
+  type Delivery = 'home_delivery' | 'curbside' | 'in_store';
+
   if (!Object.values(DeliveryCategory).includes(delivery_category)) {
     throw new Error(
       `Invalid delivery_category passed: ${input}. Allowed values are one of ` +
