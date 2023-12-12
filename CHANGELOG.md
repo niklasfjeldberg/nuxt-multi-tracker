@@ -1,5 +1,58 @@
 # Changelog
 
+## v0.3.1
+
+[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.3.0...v0.3.1)
+
+### 🚀 Enhancements
+
+- New packages + update ([2b8b026](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/2b8b026))
+- Added github workflow ([5094810](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/5094810))
+- Pass custom eventname type to track() ([a05b45f](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a05b45f))
+- Track() inputs custom eventname ([b69ec88](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/b69ec88))
+- Types for Meta CAPI ([3ca2507](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/3ca2507))
+- Server util input normalizer and hasher ([57f1f47](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/57f1f47))
+- Basic setup of two server utils ([f00a257](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/f00a257))
+
+### 🩹 Fixes
+
+- Standard naming for script namefile ([e5d0521](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e5d0521))
+- Workflow ([21711e6](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/21711e6))
+- Testing workflow ([64be969](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/64be969))
+- ? ([876b23f](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/876b23f))
+- ? ([335fb4e](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/335fb4e))
+- ? ([6fc54a9](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/6fc54a9))
+- ?? ([86f0984](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/86f0984))
+- Added token ([9756e58](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/9756e58))
+- ?? ([0344579](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/0344579))
+- Workflow ([66aa2f4](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/66aa2f4))
+- Disable unused code ([e46c2df](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e46c2df))
+- Enable google tag ([68ba99a](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/68ba99a))
+- Correct google send event ([fec8dea](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/fec8dea))
+- Checking if wrong function is loaded for meta ([7ed5325](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/7ed5325))
+- Improve google tags ([471b173](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/471b173))
+- Prep for new release ([b16ba54](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/b16ba54))
+
+### 📖 Documentation
+
+- Minor edit ([6dac084](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/6dac084))
+- Update to reflect pixel's statuses ([66b8406](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/66b8406))
+
+### 🏡 Chore
+
+- Update dep ([b5d22f9](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/b5d22f9))
+- Update dep. ([057042c](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/057042c))
+
+### ✅ Tests
+
+- Test for server utils ([3410ca9](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/3410ca9))
+- NormalizeInput ([f31eec9](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/f31eec9))
+
+### ❤️ Contributors
+
+- Niklas Fjeldberg <github@fjeldberg.me>
+- Reslear <reslear@gmail.com>
+
 ## v0.3.0
 
 [compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.2.0...v0.3.0)
