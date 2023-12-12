@@ -2,23 +2,7 @@
 
 ## v0.3.3
 
-[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.3.2...v0.3.3)
-
-### 🏡 Chore
-
-- **release:** V0.3.1 ([beb5c8a](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/beb5c8a))
-
-### ❤️ Contributors
-
-- Niklas Fjeldberg <github@fjeldberg.me>
-
-## v0.3.1
-
-[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.3.2...v0.3.1)
-
-## v0.3.2
-
-[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.3.1...v0.3.2)
+Same release as v0.3.1
 
 ## v0.3.1
 
@@ -39,12 +23,7 @@
 - Standard naming for script namefile ([e5d0521](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e5d0521))
 - Workflow ([21711e6](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/21711e6))
 - Testing workflow ([64be969](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/64be969))
-- ? ([876b23f](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/876b23f))
-- ? ([335fb4e](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/335fb4e))
-- ? ([6fc54a9](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/6fc54a9))
-- ?? ([86f0984](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/86f0984))
 - Added token ([9756e58](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/9756e58))
-- ?? ([0344579](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/0344579))
 - Workflow ([66aa2f4](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/66aa2f4))
 - Disable unused code ([e46c2df](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e46c2df))
 - Enable google tag ([68ba99a](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/68ba99a))
@@ -81,7 +60,7 @@
 
 - Added basic twitter pixel support ([06a7962](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/06a7962))
 - Added GA4 alpha ([f0465e6](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/f0465e6))
-- ⚠️  New track & query input + renaming files ([804183b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/804183b))
+- ⚠️ New track & query input + renaming files ([804183b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/804183b))
 - More playground options ([a4e339e](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a4e339e))
 
 ### 🩹 Fixes
@@ -93,7 +72,7 @@
 - Disable twitter in multi track, is not ready ([a2d5c4a](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a2d5c4a))
 - Changed to new package name some places ([4269972](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/4269972))
 - Changed to new name + removed pixelID warning ([e1c0d74](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/e1c0d74))
-- ⚠️  Standardized naming of pixel composables ([80a3231](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/80a3231))
+- ⚠️ Standardized naming of pixel composables ([80a3231](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/80a3231))
 - Change to new track way ([85a90ea](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/85a90ea))
 - MultiTrack eventName not passing correctly ([81c16cc](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/81c16cc))
 - Disable google pixel, as it's not ready ([48d9e67](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/48d9e67))
@@ -124,8 +103,8 @@
 
 #### ⚠️ Breaking Changes
 
-- ⚠️  New track & query input + renaming files ([804183b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/804183b))
-- ⚠️  Standardized naming of pixel composables ([80a3231](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/80a3231))
+- ⚠️ New track & query input + renaming files ([804183b](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/804183b))
+- ⚠️ Standardized naming of pixel composables ([80a3231](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/80a3231))
 
 ### ❤️ Contributors
 
@@ -144,7 +123,7 @@
 
 - Remove dependencie + add keywords ([769d8f0](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/769d8f0))
 - Change to new package name ([bca79ed](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/bca79ed))
-- ⚠️  Changed main composable name ([678b2b2](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/678b2b2))
+- ⚠️ Changed main composable name ([678b2b2](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/678b2b2))
 - Improve playground for stackblitzh ([fcff54f](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/fcff54f))
 
 ### 📖 Documentation
@@ -156,7 +135,7 @@
 
 #### ⚠️ Breaking Changes
 
-- ⚠️  Changed main composable name ([678b2b2](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/678b2b2))
+- ⚠️ Changed main composable name ([678b2b2](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/678b2b2))
 
 ### ❤️ Contributors
 
@@ -168,16 +147,16 @@
 
 ### 🩹 Fixes
 
-- ⚠️  Changed configkey to new package name ([83471fd](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/83471fd))
+- ⚠️ Changed configkey to new package name ([83471fd](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/83471fd))
 - Create LICENSE ([a3fac19](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/a3fac19))
 
 #### ⚠️ Breaking Changes
 
-- ⚠️  Changed configkey to new package name ([83471fd](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/83471fd))
+- ⚠️ Changed configkey to new package name ([83471fd](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/83471fd))
 
 ### ❤️ Contributors
 
-- Niklas 
+- Niklas
 - Niklas Fjeldberg <github@fjeldberg.me>
 
 ## v0.0.3
