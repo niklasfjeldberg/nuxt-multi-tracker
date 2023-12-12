@@ -176,8 +176,8 @@ export default function (input?: GoogleModuleOptions) {
       // gtag(<command>, <command parameters>);
 
       // eslint-disable-next-line no-inner-declarations
-      function gtag(...args: any[]) {
-        window.dataLayer.push(...args);
+      function gtag(command: string, ...args: any[]) {
+        window.dataLayer.push(arguments);
       }
 
       // https://developers.google.com/tag-platform/gtagjs/reference#event
