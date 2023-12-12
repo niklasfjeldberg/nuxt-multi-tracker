@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.3.3
+
+[compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.3.2...v0.3.3)
+
+### 🏡 Chore
+
+- **release:** V0.3.1 ([beb5c8a](https://github.com/niklasfjeldberg/nuxt-multi-tracker/commit/beb5c8a))
+
+### ❤️ Contributors
+
+- Niklas Fjeldberg <github@fjeldberg.me>
+
 ## v0.3.1
 
 [compare changes](https://github.com/niklasfjeldberg/nuxt-multi-tracker/compare/v0.3.2...v0.3.1)
