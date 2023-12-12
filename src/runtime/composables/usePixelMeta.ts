@@ -1,8 +1,8 @@
-import { computed, useRuntimeConfig, useState, useHead, toRaw } from '#imports';
-import { defu } from 'defu';
-import { useInfo, useLogError } from './useLog';
-import useConsent from './useConsent';
-import { metaStandardEvents } from '../consts/eventNames';
+import { computed, useRuntimeConfig, useState, useHead, toRaw } from "#imports";
+import { defu } from "defu";
+import { useInfo, useLogError } from "./useLog";
+import useConsent from "./useConsent";
+import { metaStandardEvents } from "../consts/eventNames";
 
 import type {
   MetaUserData,
@@ -11,14 +11,14 @@ import type {
   MetaQuery,
   MetaModuleOptions,
   MetaPixelOptions,
-} from '../types';
+} from "../types";
 
 export default function (input?: MetaModuleOptions) {
   const { meta, disabled, debug, loadingStrategy } =
     useRuntimeConfig().public.multiTracker;
 
-  const options = useState<MetaPixelOptions>('metaPixelOptions');
-  const pixelType = 'Meta';
+  const options = useState<MetaPixelOptions>("metaPixelOptions");
+  const pixelType = "Meta";
 
   if (!options.value) {
     const temp = defu(input, meta as MetaModuleOptions);
@@ -35,7 +35,7 @@ export default function (input?: MetaModuleOptions) {
 
   const pixelDisabled = computed(
     () =>
-      !haveConsent.value || !options.value.isEnabled || !options.value.pixelID,
+      !haveConsent.value || !options.value.isEnabled || !options.value.pixelID
   );
 
   /**
@@ -63,17 +63,17 @@ export default function (input?: MetaModuleOptions) {
     useHead({
       script: [
         {
-          hid: 'metaPixel',
-          src: 'https://connect.facebook.net/en_US/fbevents.js',
+          hid: "metaPixel",
+          src: "https://connect.facebook.net/en_US/fbevents.js",
           onload: () => scriptLoaded(),
-          defer: loadingStrategy === 'defer',
+          defer: loadingStrategy === "defer",
         },
       ],
     });
     const scriptLoaded = () => {
-      if (!window.rdt) {
+      if (!window.fbq) {
         useLogError(
-          `(${pixelType}) fbq was loaded but is not avaible in "window".`,
+          `(${pixelType}) fbq was loaded but is not avaible in "window".`
         );
       } else {
         options.value.pixelLoaded = true;
@@ -99,7 +99,7 @@ export default function (input?: MetaModuleOptions) {
    */
   const setUserData = (
     newUserData: MetaUserData,
-    initPixel: boolean = true,
+    initPixel: boolean = true
   ) => {
     if (!newUserData) return;
     // If data is same (INCLUDING PROP ORDER) skip setting user data.
@@ -134,13 +134,13 @@ export default function (input?: MetaModuleOptions) {
     if (pixelDisabled.value) return;
     if (!options.value.pixelLoaded) setFbq();
     if (options.value.manualMode) {
-      query('set', {
-        option: 'autoConfig',
+      query("set", {
+        option: "autoConfig",
         autoMode: false,
         pixelID: options.value.pixelID!,
       });
     }
-    query('init', {
+    query("init", {
       pixelID: options.value.pixelID!,
       userData: options.value.userData,
     });
@@ -153,18 +153,18 @@ export default function (input?: MetaModuleOptions) {
    */
   const track = <T = void>(
     eventName?: MetaEventNames | T,
-    params?: MetaTrackParamsOptions,
+    params?: MetaTrackParamsOptions
   ) => {
     if (pixelDisabled.value) return;
 
     if (!eventName) eventName = options.value.track!;
 
     query(
-      (metaStandardEvents as any).includes(eventName) ? 'track' : 'trackCustom',
+      (metaStandardEvents as any).includes(eventName) ? "track" : "trackCustom",
       {
         eventName: eventName as string,
         ...params,
-      },
+      }
     );
   };
 
@@ -177,7 +177,7 @@ export default function (input?: MetaModuleOptions) {
     // Disable tracking if module is disabled or user consent is not given.
     if (pixelDisabled.value) return;
 
-    useInfo(`(${pixelType}) Cmd:`, cmd, 'Params:', params);
+    useInfo(`(${pixelType}) Cmd:`, cmd, "Params:", params);
 
     options.value.eventsQueue.push({
       cmd,
@@ -196,15 +196,15 @@ export default function (input?: MetaModuleOptions) {
       if (debug) useInfo(`(${pixelType}) Send event:`, toRaw(event));
 
       if (event) {
-        if (['track', 'trackCustom'].includes(event.cmd)) {
+        if (["track", "trackCustom"].includes(event.cmd)) {
           window.fbq(event.cmd, event.eventName, event.properties, {
             eventID: { eventID: event.eventID },
           });
-        } else if (event.cmd === 'init') {
-          window.fbq('init', event.pixelID, event.userData);
-        } else if (event.cmd === 'set') {
-          window.fbq('set', event.option, event.autoMode, event.pixelID);
-        } else if (['trackSingle', 'trackSingleCustom'].includes(event.cmd)) {
+        } else if (event.cmd === "init") {
+          window.fbq("init", event.pixelID, event.userData);
+        } else if (event.cmd === "set") {
+          window.fbq("set", event.option, event.autoMode, event.pixelID);
+        } else if (["trackSingle", "trackSingleCustom"].includes(event.cmd)) {
           window.fbq(
             event.cmd,
             event.pixelID,
@@ -212,7 +212,7 @@ export default function (input?: MetaModuleOptions) {
             event.properties,
             {
               eventID: { eventID: event.eventID },
-            },
+            }
           );
         } else {
           useLogError(`(${pixelType}) command not account for:`, event.cmd);
