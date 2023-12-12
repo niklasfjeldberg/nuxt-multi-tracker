@@ -1,5 +1,4 @@
-import type { S } from 'vitest/dist/types-198fd1d9';
-import type { GoogleModuleOptions, CurrencyCodes } from './index';
+import type { GoogleModuleOptions } from './index'; // CurrencyCodes
 
 export type GooglePixelCmd =
   | 'config'
@@ -21,14 +20,16 @@ export interface GooglePixelOptions extends GoogleModuleOptions {
 
 export interface GoogleQueryParamOptions {
   cmd?: GooglePixelCmd;
-  targetId?: string;
-  config?: GoogleConfigParams;
-  eventParams?: GoogleEventParams;
+  targetId?: string; // pixel ID
+  configParams?: GoogleConfigParams; // GoogleConfigParams | GoogleControlParams | GoogleEventParams | Record<string, any>
+  eventParams?: GoogleControlParams | GoogleEventParams | Record<string, any>;
   eventName?: string;
   consentArg?: GoogleConsentArg;
   consentParams?: GoogleConsentParams;
   callback?: any;
   fieldName?: any;
+  setParams?: Record<string, any>;
+  date?: Date;
 }
 
 export interface GoogleQuery {
@@ -36,30 +37,20 @@ export interface GoogleQuery {
     cmd: 'config',
     params: {
       targetId: string;
-      config?:
-        | GoogleControlParams
-        | GoogleEventParams
-        | GoogleConfigParams
-        | Record<string, any>;
+      configParams?: GoogleConfigParams;
     },
   ): void;
   (
     cmd: 'set',
     params: {
       targetId: string;
-      config: string | boolean | Record<string, any>;
-    },
-  ): void;
-  (
-    cmd: 'set',
-    params: {
-      config: Record<string, any>;
+      setParams: Record<string, any>;
     },
   ): void;
   (
     cmd: 'js',
     params: {
-      config: Date;
+      date: Date;
     },
   ): void;
   (

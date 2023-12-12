@@ -10,7 +10,6 @@ import type {
   GoogleEventParams,
   GoogleEventNames,
   GoogleQuery,
-  GoogleControlParams,
 } from '~/src/runtime/types';
 
 export default function (input?: GoogleModuleOptions) {
@@ -41,7 +40,8 @@ export default function (input?: GoogleModuleOptions) {
 
   /**
    * @method setPixel
-   * Used to load the script and make the respective pixel function avaible in window. Without setting this the composable will not work.
+   * Used to load the script and make the respective pixel function avaible in window.
+   * Without setting this the composable will not work.
    */
   const setPixel = () => {
     if (process.browser) {
@@ -120,7 +120,7 @@ export default function (input?: GoogleModuleOptions) {
     if (pixelDisabled.value) return;
     if (!options.value.pixelLoaded) setPixel();
 
-    query('js', { config: new Date() });
+    query('js', { date: new Date() });
     query('config', { targetId: options.value.pixelID! }); // config: ???
   };
 
@@ -131,7 +131,7 @@ export default function (input?: GoogleModuleOptions) {
    */
   const track = (
     eventName?: GoogleEventNames,
-    params?: GoogleControlParams | GoogleEventParams | Record<string, any>,
+    params?: GoogleEventParams, // | GoogleControlParams |  Record<string, any>
   ) => {
     if (pixelDisabled.value) return;
 
@@ -140,7 +140,7 @@ export default function (input?: GoogleModuleOptions) {
 
     query('event', {
       eventName: eventName || options.value.track!,
-      ...params,
+      eventParams: params,
     });
   };
 
@@ -172,29 +172,33 @@ export default function (input?: GoogleModuleOptions) {
 
       if (debug) useInfo(`(${pixelType}) Send event: `, toRaw(event));
 
-      // Google tag consists of a single function, gtag(), with the following syntax:
-      // gtag(<command>, <command parameters>);
-
-      // eslint-disable-next-line no-inner-declarations
+      // eslint-disable-next-line no-inner-declarations, @typescript-eslint/no-unused-vars
       function gtag(command: string, ...args: any[]) {
+        // eslint-disable-next-line prefer-rest-params
         window.dataLayer.push(arguments);
       }
 
       // https://developers.google.com/tag-platform/gtagjs/reference#event
 
+      // TODO: look into types. Each event has recommedned parameters:
+      // https://developers.google.com/tag-platform/gtagjs/reference/events
+
+      if (!event) continue;
+
       if (event.cmd === 'event') {
-        gtag('event', event.eventName, {});
+        gtag('event', event.eventName, {
+          ...event.eventParams,
+        });
       } else if (event.cmd === 'config') {
-        // ID can be: Google Ads Tag ID, etc.
-        gtag('config', event.pixelID, {
-          // additional_config_info
+        gtag('config', event.targetId, {
+          ...event.configParams,
         });
       } else if (event.cmd === 'set') {
-        gtag('set', { ...event });
+        gtag('set', { ...event.setParams });
+      } else if (event.cmd === 'js') {
+        gtag('js', event.date);
       } else if (event.cmd === 'consent') {
         useLogError(`(${pixelType}) cmd is not accounted for:`, event.cmd);
-      } else if (event.cmd === 'js') {
-        gtag('js', event.config);
       } else {
         useLogError(`(${pixelType}) cmd is not accounted for:`, event.cmd);
       }
@@ -205,6 +209,7 @@ export default function (input?: GoogleModuleOptions) {
     options: options.value,
     setPixel,
     setPixelId,
+    setUserData,
     enable,
     disable,
     track,
