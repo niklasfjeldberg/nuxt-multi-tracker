@@ -71,7 +71,7 @@ export default function (input?: MetaModuleOptions) {
       ],
     });
     const scriptLoaded = () => {
-      if (!window.rdt) {
+      if (!window.fbq) {
         useLogError(
           `(${pixelType}) fbq was loaded but is not avaible in "window".`,
         );
