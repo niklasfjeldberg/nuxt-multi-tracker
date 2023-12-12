@@ -3,7 +3,7 @@ import { useGroup, useGroupEnd, useLogError } from './useLog';
 // Pixels
 import usePixelMeta from './usePixelMeta';
 import usePixelReddit from './usePixelReddit';
-import usePixelTwitter from './usePixelTwitter';
+/* import usePixelTwitter from './usePixelTwitter'; */
 import usePixelGoogle from './usePixelGoogle';
 
 // Other

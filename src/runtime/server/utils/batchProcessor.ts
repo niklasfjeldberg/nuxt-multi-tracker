@@ -1,5 +1,5 @@
 // https://github.com/facebook/facebook-nodejs-business-sdk/blob/3edb78dc855ca348fd0291af930c035c03347049/src/objects/serverside/batch-processor.js
-
+/*
 import ServerEvent from './server-event';
 import EventRequest from './event-request';
 import EventResponse from './event-response';
@@ -71,4 +71,4 @@ export default function (batch_size: number, concurrent_requests: number) {
       await Promise.all(batch);
     }
   };
-}
+} */
