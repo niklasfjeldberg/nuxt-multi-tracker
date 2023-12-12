@@ -24,8 +24,8 @@ Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conver
 - Supported pixels:
   - Meta (Facebook) pixel
   - Reddit pixel
-  - Twitter pixel (alpha: basic support)
-  - Google Analytics 4 ([GA4](https://support.google.com/analytics/answer/9304153?hl=en)) (alpha: basic support, just `datalayer` directly)
+  - Twitter pixel (alpha)
+  - Google Analytics 4 (GA4) (alpha)
 
 ## Table of Contents
 
