@@ -3,8 +3,8 @@ import { useGroup, useGroupEnd, useLogError } from './useLog';
 // Pixels
 import usePixelMeta from './usePixelMeta';
 import usePixelReddit from './usePixelReddit';
-/* import usePixelTwitter from './usePixelTwitter'; */
 import usePixelGoogle from './usePixelGoogle';
+/* import usePixelTwitter from './usePixelTwitter'; */
 
 // Other
 import useConsent from './useConsent';
@@ -58,16 +58,12 @@ export default function () {
     metaPixel.track(eventName, params);
 
     redditPixel.track(
-      eventName
-        ? metaToRedditEventNames[eventName as MetaEventNames] || eventName
-        : eventName,
+      metaToRedditEventNames[eventName as MetaEventNames] || eventName,
       params,
     );
 
     googlePixel.track(
-      eventName
-        ? metaToGoogleEventNames[eventName as GoogleEventNames] || eventName
-        : eventName,
+      metaToGoogleEventNames[eventName as GoogleEventNames] || eventName,
       params,
     );
 
