@@ -14,16 +14,15 @@ import type {
 } from '../types';
 
 export default function (input?: MetaModuleOptions) {
-  const { meta, disabled, debug, loadingStrategy } =
+  const { meta, disabled, loadingStrategy } =
     useRuntimeConfig().public.multiTracker;
 
   const options = useState<MetaPixelOptions>('metaPixelOptions');
   const pixelType = 'Meta';
 
   if (!options.value) {
-    const temp = defu(input, meta as MetaModuleOptions);
     options.value = {
-      ...temp,
+      ...defu(input, meta as MetaModuleOptions),
       pixelLoaded: false,
       isEnabled: !disabled,
       userData: null,
@@ -39,10 +38,10 @@ export default function (input?: MetaModuleOptions) {
   );
 
   /**
-   * @method setFbq
+   * @method setPixel
    * Used to give this composable the Meta (Facebook) Pixel function "fbq". Without setting this the composable will not work.
    */
-  const setFbq = () => {
+  const setPixel = () => {
     if (process.browser) {
       /* eslint-disable */
       ((f, b, e, v, n, t, s) => {
@@ -73,11 +72,11 @@ export default function (input?: MetaModuleOptions) {
     const scriptLoaded = () => {
       if (!window.fbq) {
         useLogError(
-          `(${pixelType}) fbq was loaded but is not avaible in "window".`,
+          `(${pixelType}) fbq was loaded but is not available in "window".`,
         );
       } else {
         options.value.pixelLoaded = true;
-        track();
+        send();
       }
     };
   };
@@ -117,7 +116,6 @@ export default function (input?: MetaModuleOptions) {
   const enable = () => {
     options.value.isEnabled = true;
     init();
-    track();
   };
 
   /**
@@ -132,7 +130,7 @@ export default function (input?: MetaModuleOptions) {
    */
   const init = () => {
     if (pixelDisabled.value) return;
-    if (!options.value.pixelLoaded) setFbq();
+    if (!options.value.pixelLoaded) setPixel();
     if (options.value.manualMode) {
       query('set', {
         option: 'autoConfig',
@@ -193,7 +191,7 @@ export default function (input?: MetaModuleOptions) {
     while (options.value.eventsQueue.length) {
       const event = options.value.eventsQueue.shift();
 
-      if (debug) useInfo(`(${pixelType}) Send event:`, toRaw(event));
+      useInfo(`(${pixelType}) Send event:`, toRaw(event));
 
       if (event) {
         if (['track', 'trackCustom'].includes(event.cmd)) {
@@ -223,7 +221,7 @@ export default function (input?: MetaModuleOptions) {
 
   return {
     options: options.value,
-    setFbq,
+    setPixel,
     setPixelId,
     setUserData,
     enable,

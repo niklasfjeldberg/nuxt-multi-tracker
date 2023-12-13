@@ -13,7 +13,7 @@ import type {
 } from '~/src/runtime/types';
 
 export default function (input?: GoogleModuleOptions) {
-  const { google, disabled, debug, loadingStrategy } =
+  const { google, disabled, loadingStrategy } =
     useRuntimeConfig().public.multiTracker;
 
   const pixelType = 'Google';
@@ -21,9 +21,8 @@ export default function (input?: GoogleModuleOptions) {
   const options = useState<GooglePixelOptions>('googlePixelOptions');
 
   if (!options.value) {
-    const temp = defu(input, google as GoogleModuleOptions);
     options.value = {
-      ...temp,
+      ...defu(input, google as GoogleModuleOptions),
       pixelLoaded: false,
       isEnabled: !disabled,
       userData: null,
@@ -40,7 +39,7 @@ export default function (input?: GoogleModuleOptions) {
 
   /**
    * @method setPixel
-   * Used to load the script and make the respective pixel function avaible in window.
+   * Used to load the script and make the respective pixel function available in window.
    * Without setting this the composable will not work.
    */
   const setPixel = () => {
@@ -60,11 +59,11 @@ export default function (input?: GoogleModuleOptions) {
     const scriptLoaded = () => {
       if (!window.dataLayer) {
         useLogError(
-          `(${pixelType}) datalayer was loaded but is not avaible in "window".`,
+          `(${pixelType}) datalayer was loaded but is not available in "window".`,
         );
       } else {
         options.value.pixelLoaded = true;
-        track();
+        send();
       }
     };
   };
@@ -103,7 +102,6 @@ export default function (input?: GoogleModuleOptions) {
   const enable = () => {
     options.value.isEnabled = true;
     init();
-    track();
   };
 
   /**
@@ -121,7 +119,12 @@ export default function (input?: GoogleModuleOptions) {
     if (!options.value.pixelLoaded) setPixel();
 
     query('js', { date: new Date() });
-    query('config', { targetId: options.value.pixelID! }); // config: ???
+    query('config', {
+      targetId: options.value.pixelID!,
+      configParams: {
+        send_page_view: false, // Handled by the module.
+      },
+    });
   };
 
   /**
@@ -129,8 +132,8 @@ export default function (input?: GoogleModuleOptions) {
    * @param {string} [eventName] See same for event names.
    * @param {object} [params] See https://reddit.my.site.com/helpcenter/s/article/Reddit-Pixel-Event-Metadata
    */
-  const track = (
-    eventName?: GoogleEventNames,
+  const track = <T = void>(
+    eventName?: GoogleEventNames | T,
     params?: GoogleEventParams, // | GoogleControlParams |  Record<string, any>
   ) => {
     if (pixelDisabled.value) return;
@@ -139,7 +142,7 @@ export default function (input?: GoogleModuleOptions) {
     // TODO: if (eventName !== followsNamingRules) useLogError()
 
     query('event', {
-      eventName: eventName || options.value.track!,
+      eventName: (eventName || options.value.track!) as string,
       eventParams: params,
     });
   };
@@ -151,7 +154,6 @@ export default function (input?: GoogleModuleOptions) {
    */
 
   const query: GoogleQuery = (cmd, params) => {
-    // PROBLEM with naming of props?
     if (pixelDisabled.value) return;
 
     useInfo(`(${pixelType}) cmd:`, cmd, 'Params:', params);
@@ -170,7 +172,7 @@ export default function (input?: GoogleModuleOptions) {
     while (options.value.eventsQueue.length) {
       const event = options.value.eventsQueue.shift();
 
-      if (debug) useInfo(`(${pixelType}) Send event: `, toRaw(event));
+      useInfo(`(${pixelType}) Send event: `, toRaw(event));
 
       // eslint-disable-next-line no-inner-declarations, @typescript-eslint/no-unused-vars
       function gtag(command: string, ...args: any[]) {
@@ -178,7 +180,7 @@ export default function (input?: GoogleModuleOptions) {
         window.dataLayer.push(arguments);
       }
 
-      // https://developers.google.com/tag-platform/gtagjs/reference#event
+      // https://developers.google.com/tag-platform/gtagjs/reference
 
       // TODO: look into types. Each event has recommedned parameters:
       // https://developers.google.com/tag-platform/gtagjs/reference/events
@@ -190,9 +192,7 @@ export default function (input?: GoogleModuleOptions) {
           ...event.eventParams,
         });
       } else if (event.cmd === 'config') {
-        gtag('config', event.targetId, {
-          ...event.configParams,
-        });
+        gtag('config', event.targetId, event.configParams);
       } else if (event.cmd === 'set') {
         gtag('set', { ...event.setParams });
       } else if (event.cmd === 'js') {

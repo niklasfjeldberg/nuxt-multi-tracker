@@ -13,7 +13,7 @@ import type {
 } from '~/src/runtime/types';
 
 export default function (input?: TwitterModuleOptions) {
-  const { twitter, disabled, debug, loadingStrategy } =
+  const { twitter, disabled, loadingStrategy } =
     useRuntimeConfig().public.multiTracker;
 
   const pixelType = 'Twitter';
@@ -21,9 +21,8 @@ export default function (input?: TwitterModuleOptions) {
   const options = useState<TwitterPixelOptions>('twitterPixelOptions');
 
   if (!options.value) {
-    const temp = defu(input, twitter as TwitterModuleOptions);
     options.value = {
-      ...temp,
+      ...defu(input, twitter as TwitterModuleOptions),
       pixelLoaded: false,
       isEnabled: !twitter.disabled ? !disabled : false,
       userData: null,
@@ -40,7 +39,7 @@ export default function (input?: TwitterModuleOptions) {
 
   /**
    * @method setPixel
-   * Used to load the script and make the respective pixel function avaible in window. Without setting this the composable will not work.
+   * Used to load the script and make the respective pixel function available in window. Without setting this the composable will not work.
    */
   const setPixel = () => {
     if (process.browser) {
@@ -54,7 +53,6 @@ export default function (input?: TwitterModuleOptions) {
           (s.version = twitter.version),
           (s.queue = []));
       })(window, document);
-
       /* eslint-enable */
     }
     useHead({
@@ -70,11 +68,11 @@ export default function (input?: TwitterModuleOptions) {
     const scriptLoaded = () => {
       if (!window.twq) {
         useLogError(
-          `(${pixelType}) script was loaded but functions is not avaible in "window".`,
+          `(${pixelType}) script was loaded but functions is not available in "window".`,
         );
       } else {
         options.value.pixelLoaded = true;
-        track();
+        send();
       }
     };
   };
@@ -113,7 +111,6 @@ export default function (input?: TwitterModuleOptions) {
   const enable = () => {
     options.value.isEnabled = true;
     init();
-    track();
   };
 
   /**
@@ -185,7 +182,7 @@ export default function (input?: TwitterModuleOptions) {
     while (options.value.eventsQueue.length) {
       const event = options.value.eventsQueue.shift();
 
-      if (debug) useInfo(`(${pixelType}) Send event: `, toRaw(event));
+      useInfo(`(${pixelType}) Send event: `, toRaw(event));
 
       if (event) {
         /*

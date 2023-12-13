@@ -15,7 +15,7 @@ import type {
 } from '~/src/runtime/types';
 
 export default function (input?: RedditModuleOptions) {
-  const { reddit, disabled, debug, loadingStrategy } =
+  const { reddit, disabled, loadingStrategy } =
     useRuntimeConfig().public.multiTracker;
 
   const pixelType = 'Reddit';
@@ -23,9 +23,8 @@ export default function (input?: RedditModuleOptions) {
   const options = useState<RedditPixelOptions>('redditPixelOptions');
 
   if (!options.value) {
-    const temp = defu(input, reddit as RedditModuleOptions);
     options.value = {
-      ...temp,
+      ...defu(input, reddit as RedditModuleOptions),
       pixelLoaded: false,
       isEnabled: !disabled,
       userData: null,
@@ -42,7 +41,7 @@ export default function (input?: RedditModuleOptions) {
 
   /**
    * @method setPixel
-   * Used to load the script and make the respective pixel function avaible in window. Without setting this the composable will not work.
+   * Used to load the script and make the respective pixel function available in window. Without setting this the composable will not work.
    */
   const setPixel = () => {
     if (process.browser) {
@@ -72,11 +71,11 @@ export default function (input?: RedditModuleOptions) {
     const scriptLoaded = () => {
       if (!window.rdt) {
         useLogError(
-          `(${pixelType}) rdt was loaded but is not avaible in "window".`,
+          `(${pixelType}) rdt was loaded but is not available in "window".`,
         );
       } else {
         options.value.pixelLoaded = true;
-        track();
+        send();
       }
     };
   };
@@ -118,7 +117,6 @@ export default function (input?: RedditModuleOptions) {
   const enable = () => {
     options.value.isEnabled = true;
     init();
-    track();
   };
 
   /**
@@ -196,7 +194,7 @@ export default function (input?: RedditModuleOptions) {
     while (options.value.eventsQueue.length) {
       const event = toRaw(options.value.eventsQueue.shift());
 
-      if (debug) useInfo(`(${pixelType}) Send event: `, event);
+      useInfo(`(${pixelType}) Send event: `, event);
 
       if (event) {
         /*
