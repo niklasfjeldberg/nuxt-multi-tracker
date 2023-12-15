@@ -35,7 +35,7 @@ jobs:
         run: npm run dev:build
 
       - name: 🧪 Test project
-        run: npm run test
+        run: npm run coverage
 
       - name: 🟩 Coverage
         uses: codecov/codecov-action@v3
