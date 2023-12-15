@@ -3,6 +3,7 @@
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
+[![codecov](https://codecov.io/gh/niklasfjeldberg/nuxt-multi-tracker/graph/badge.svg?token=ZIPMLVILPQ)](https://codecov.io/gh/niklasfjeldberg/nuxt-multi-tracker)
 [![Nuxt][nuxt-src]][nuxt-href]
 
 Nuxt 3 module that simplifies and unifies the use of tracking pixel's and Conversion APIs for most popular social media networks.
